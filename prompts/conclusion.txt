@@ -1,0 +1,77 @@
+You are an expert academic researcher writing the Conclusion section for a survey paper intended for publication in a machine learning research venue.
+
+**IMPORTANT:** This is the ONLY Conclusion and Summary for the entire survey paper. This section serves as both the conclusion and the overall summary of the entire survey.
+
+**Topic:** {topic}
+
+**Key Findings:**
+{key_findings}
+
+**Main Contributions:**
+{contributions}
+
+**Challenges:**
+{challenges}
+
+**Future Directions:**
+{future_directions}
+
+**Available References:**
+{references}
+
+---
+
+**Task:** Write a comprehensive "Conclusion" section that serves as both the conclusion AND the overall summary of the entire survey paper. This is the final section that ties everything together.
+
+**Must Include:**
+
+1. **Summarize Key Contributions:**
+   - What did this survey accomplish?
+   - What taxonomy or classification was provided?
+   - What synthesis or analysis was performed?
+   - What gaps were identified?
+
+2. **Recap Main Findings:**
+   - Key insights from the review
+   - Important patterns or trends
+   - Significant advances identified
+   - Critical challenges highlighted
+
+3. **Reinforce Importance:**
+   - Why this topic matters
+   - Current relevance and timeliness
+   - Impact on the field
+   - Practical significance
+
+4. **Synthesize the Survey:**
+   - How do sections connect?
+   - What is the overall picture?
+   - What are the takeaway messages?
+   - What should readers remember?
+
+5. **Look Forward:**
+   - Brief mention of future directions
+   - Anticipated developments
+   - Open questions
+   - Call to action for researchers
+
+6. **Acknowledge Limitations:**
+   - Scope limitations of this survey
+   - What was not covered
+   - Temporal boundaries
+   - Methodological boundaries
+
+**Writing Style:**
+- Use formal academic tone
+- Be concise but comprehensive
+- Avoid introducing new information
+- Synthesize rather than repeat
+- End on a forward-looking note
+- Maintain consistency with introduction
+- Cite key references using format [N] where N corresponds to references in the Available References list
+
+**Output Format:**
+## Conclusion
+
+[Comprehensive conclusion that serves as both the conclusion AND summary of the entire survey. Synthesize all sections, reinforce contributions, acknowledge limitations, and provide forward-looking perspective. This is the final section - make it comprehensive and cohesive.]
+

@@ -1,0 +1,112 @@
+You are an expert academic researcher identifying open challenges and limitations in a survey paper intended for publication in a machine learning research venue.
+
+**Topic:** {topic}
+
+**Context from Research:**
+{context}
+
+**Available References:**
+{references}
+
+---
+
+**Task:** Write a comprehensive "Open Challenges" section that must categorize challenges and justify why they remain unresolved.
+
+**Challenge Categories (organize by these or similar categories):**
+
+1. **Algorithmic Challenges:**
+   - Fundamental algorithmic problems that remain unsolved
+   - Limitations of current methods
+   - Scalability issues
+   - Performance bottlenecks
+   - Accuracy/reliability concerns
+   - Why these remain unresolved
+
+2. **Conceptual Challenges:**
+   - Gaps in theoretical understanding
+   - Lack of formal guarantees
+   - Unproven assumptions
+   - Missing theoretical frameworks
+   - Open theoretical questions
+   - Why these remain unresolved
+
+3. **Operational Challenges:**
+   - Resource requirements (compute, memory, storage)
+   - Efficiency and optimization needs
+   - Real-time processing constraints
+   - Distributed computing challenges
+   - Energy consumption concerns
+   - Deployment and maintenance issues
+   - Why these remain unresolved
+
+4. **Data-Related Challenges:**
+   - Data availability and quality
+   - Data privacy and consent
+   - Data bias and representativeness
+   - Labeling and annotation costs
+   - Domain adaptation needs
+   - Why these remain unresolved
+
+5. **Ethical Challenges:**
+   - Bias and fairness concerns
+   - Privacy and security issues
+   - Misuse potential
+   - Social impact considerations
+   - Regulatory and policy challenges
+   - Why these remain unresolved
+
+6. **Evaluation Challenges:**
+   - Lack of standardized benchmarks
+   - Evaluation metric limitations
+   - Reproducibility issues
+   - Comparison difficulties
+   - Real-world validation gaps
+   - Why these remain unresolved
+
+**For Each Challenge, Provide:**
+- Clear description of the challenge
+- Why it matters
+- Why it remains unresolved (justification)
+- Current state of addressing it
+- References to relevant work using format [N] where N corresponds to references in the Available References list
+
+**Writing Style:**
+- Use formal academic tone
+- Be honest and critical but constructive
+- Organize challenges logically
+- Prioritize by importance and impact
+- Connect challenges to the taxonomy and recent advances
+- Justify why each challenge remains unresolved
+- Support claims with citations
+
+**IMPORTANT:** This section is part of a single cohesive survey paper. Do NOT include an "Introduction" or "Summary" subsection. Flow directly from previous sections.
+
+**Output Format:**
+## Open Challenges
+
+[Start directly with a brief paragraph (2-3 sentences) connecting to previous sections and introducing challenges. Do NOT use "### Introduction" header.]
+
+### Algorithmic Challenges
+
+[Detailed discussion with justification for why challenges remain unresolved]
+
+### Conceptual Challenges
+
+[Examination with justification]
+
+### Operational Challenges
+
+[Analysis with justification]
+
+### Data-Related Challenges
+
+[Examination with justification]
+
+### Ethical Challenges
+
+[Analysis with justification]
+
+### Evaluation Challenges
+
+[Discussion with justification. End by transitioning to the Future Directions section. Do NOT include a "Summary" subsection.]
+

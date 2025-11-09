@@ -1,0 +1,247 @@
+"""
+Report Formatter Module
+Handles structured report generation and export.
+"""
+
+import os
+import logging
+from typing import Dict, List, Optional
+from datetime import datetime
+from pathlib import Path
+
+logger = logging.getLogger(__name__)
+
+
+class ReportFormatter:
+    """Formats and exports research reports."""
+    
+    def __init__(self):
+        """Initialize the report formatter."""
+        pass
+    
+    def format_report(
+        self,
+        query: str,
+        sections: Dict[str, str],
+        references: List[Dict],
+        metadata: Optional[Dict] = None
+    ) -> Dict[str, str]:
+        """
+        Format a complete research report.
+        
+        Args:
+            query: Research query
+            sections: Dictionary with section names as keys and content as values
+            references: List of reference dictionaries
+            metadata: Optional metadata (author, date, etc.)
+            
+        Returns:
+            Dictionary with formatted report in different formats
+        """
+        metadata = metadata or {}
+        timestamp = metadata.get("timestamp", datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+        
+        # Format references
+        references_text = self._format_references(references)
+        
+        # Create markdown report
+        markdown = self._create_markdown(query, sections, references_text, timestamp)
+        
+        # Create plain text report
+        plain_text = self._create_plain_text(query, sections, references_text, timestamp)
+        
+        return {
+            "markdown": markdown,
+            "plain_text": plain_text,
+            "sections": sections,
+            "references": references,
+            "metadata": {
+                **metadata,
+                "query": query,
+                "timestamp": timestamp
+            }
+        }
+    
+    def _format_references(self, references: List[Dict]) -> str:
+        """Format references list with titles, URLs, authors, dates, and publications."""
+        if not references:
+            return "No references available."
+        
+        ref_lines = []
+        for i, ref in enumerate(references, 1):
+            ref_type = ref.get("source_type", "unknown")
+            if ref_type == "web_search":
+                url = ref.get("url", "")
+                title = ref.get("title", "Untitled")
+                author = ref.get("author", "")
+                date = ref.get("date", "")
+                publication = ref.get("publication", ref.get("domain", ""))
+                snippet = ref.get("snippet", "")
+                
+                # Format with title, URL, author, date, and publication
+                ref_parts = []
+                
+                # Title (required)
+                if title:
+                    ref_parts.append(f"**{title}**")
+                else:
+                    ref_parts.append("**Untitled**")
+                
+                # URL (required for web search)
+                if url:
+                    ref_parts.append(f"\n  URL: {url}")
+                else:
+                    ref_parts.append("\n  URL: Not available")
+                
+                # Author (optional)
+                if author:
+                    ref_parts.append(f"\n  Author: {author}")
+                
+                # Date (optional)
+                if date:
+                    ref_parts.append(f"\n  Date: {date}")
+                
+                # Publication/Domain (optional)
+                if publication:
+                    ref_parts.append(f"\n  Publication: {publication}")
+                
+                # Snippet (optional, for context)
+                if snippet and len(snippet) > 0:
+                    snippet_short = snippet[:200] + "..." if len(snippet) > 200 else snippet
+                    ref_parts.append(f"\n  Summary: {snippet_short}")
+                
+                ref_lines.append(f"[{i}] " + "".join(ref_parts))
+            else:
+                # Vector DB reference
+                file_name = ref.get("file_name", ref.get("source", "Unknown"))
+                chunk_id = ref.get("id", "")
+                ref_lines.append(f"[{i}] {file_name} (chunk_id: {chunk_id})")
+        
+        return "\n\n".join(ref_lines)
+    
+    def _create_markdown(
+        self,
+        query: str,
+        sections: Dict[str, str],
+        references: str,
+        timestamp: str
+    ) -> str:
+        """Create markdown formatted report."""
+        md = f"""# Research Report
+
+**Research Question:** {query}
+
+**Generated:** {timestamp}
+
+---
+
+## Abstract
+
+{sections.get('Abstract', '[Abstract not generated]')}
+
+---
+
+## Introduction
+
+{sections.get('Introduction', '[Introduction not generated]')}
+
+---
+
+## Research Findings
+
+{sections.get('Research Findings', '[Research Findings not generated]')}
+
+---
+
+## Conclusion
+
+{sections.get('Conclusion', '[Conclusion not generated]')}
+
+---
+
+## References
+
+{references}
+
+---
+*Report generated by AI Research Agent*
+"""
+        return md
+    
+    def _create_plain_text(
+        self,
+        query: str,
+        sections: Dict[str, str],
+        references: str,
+        timestamp: str
+    ) -> str:
+        """Create plain text formatted report."""
+        text = f"""RESEARCH REPORT
+
+Research Question: {query}
+Generated: {timestamp}
+
+{'='*80}
+
+ABSTRACT
+
+{sections.get('Abstract', '[Abstract not generated]')}
+
+{'='*80}
+
+INTRODUCTION
+
+{sections.get('Introduction', '[Introduction not generated]')}
+
+{'='*80}
+
+RESEARCH FINDINGS
+
+{sections.get('Research Findings', '[Research Findings not generated]')}
+
+{'='*80}
+
+CONCLUSION
+
+{sections.get('Conclusion', '[Conclusion not generated]')}
+
+{'='*80}
+
+REFERENCES
+
+{references}
+
+{'='*80}
+Report generated by AI Research Agent
+"""
+        return text
+    
+    def save_report(self, report: Dict, filename: Optional[str] = None, format: str = "markdown") -> str:
+        """
+        Save report to file.
+        
+        Args:
+            report: Report dictionary from format_report
+            filename: Optional filename (auto-generated if not provided)
+            format: "markdown" or "plain_text"
+            
+        Returns:
+            Path to saved file
+        """
+        os.makedirs("reports", exist_ok=True)
+        
+        if not filename:
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            query_slug = report["metadata"]["query"][:50].replace(" ", "_").replace("?", "")
+            filename = f"research_report_{query_slug}_{timestamp}.{format if format == 'plain_text' else 'md'}"
+        
+        filepath = os.path.join("reports", filename)
+        
+        content = report.get(format, report.get("markdown", ""))
+        
+        with open(filepath, "w", encoding="utf-8") as f:
+            f.write(content)
+        
+        logger.info(f"Saved report to {filepath}")
+        return filepath
+

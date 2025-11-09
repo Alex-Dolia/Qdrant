@@ -1,0 +1,99 @@
+{
+  "total_combinations": 6,
+  "metrics_summary": {
+    "faithfulness": {
+      "mean": 0.0,
+      "std": 0.0,
+      "min": 0.0,
+      "max": 0.0
+    },
+    "answer_relevancy": {
+      "mean": 0.0,
+      "std": 0.0,
+      "min": 0.0,
+      "max": 0.0
+    },
+    "context_precision": {
+      "mean": 0.0,
+      "std": 0.0,
+      "min": 0.0,
+      "max": 0.0
+    },
+    "context_recall": {
+      "mean": 0.0,
+      "std": 0.0,
+      "min": 0.0,
+      "max": 0.0
+    },
+    "answer_similarity": {
+      "mean": 0.0,
+      "std": 0.0,
+      "min": 0.0,
+      "max": 0.0
+    }
+  },
+  "best_combinations": {
+    "faithfulness": {
+      "embedding": "ollama/llama3.1:latest",
+      "chunker": "hierarchical",
+      "search": "mixed",
+      "score": 0.0
+    },
+    "answer_relevancy": {
+      "embedding": "ollama/llama3.1:latest",
+      "chunker": "hierarchical",
+      "search": "mixed",
+      "score": 0.0
+    },
+    "context_precision": {
+      "embedding": "ollama/llama3.1:latest",
+      "chunker": "hierarchical",
+      "search": "mixed",
+      "score": 0.0
+    },
+    "context_recall": {
+      "embedding": "ollama/llama3.1:latest",
+      "chunker": "hierarchical",
+      "search": "mixed",
+      "score": 0.0
+    },
+    "answer_similarity": {
+      "embedding": "ollama/llama3.1:latest",
+      "chunker": "hierarchical",
+      "search": "mixed",
+      "score": 0.0
+    }
+  },
+  "worst_combinations": {
+    "faithfulness": {
+      "embedding": "ollama/llama3.1:latest",
+      "chunker": "hierarchical",
+      "search": "mixed",
+      "score": 0.0
+    },
+    "answer_relevancy": {
+      "embedding": "ollama/llama3.1:latest",
+      "chunker": "hierarchical",
+      "search": "mixed",
+      "score": 0.0
+    },
+    "context_precision": {
+      "embedding": "ollama/llama3.1:latest",
+      "chunker": "hierarchical",
+      "search": "mixed",
+      "score": 0.0
+    },
+    "context_recall": {
+      "embedding": "ollama/llama3.1:latest",
+      "chunker": "hierarchical",
+      "search": "mixed",
+      "score": 0.0
+    },
+    "answer_similarity": {
+      "embedding": "ollama/llama3.1:latest",
+      "chunker": "hierarchical",
+      "search": "mixed",
+      "score": 0.0
+    }
+  }
+}

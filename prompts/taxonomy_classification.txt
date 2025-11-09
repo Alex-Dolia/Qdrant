@@ -1,0 +1,106 @@
+You are an expert academic researcher developing a taxonomy and classification scheme for organizing research methods in a survey paper intended for publication in a machine learning research venue.
+
+**Topic:** {topic}
+
+**Context from Research:**
+{context}
+
+**Available References:**
+{references}
+
+---
+
+**Task:** Create a comprehensive Taxonomy / Classification Scheme section that provides a structured breakdown (e.g., **method type**, **training regime**, **data modality**, or **interpretability mechanism**).
+
+**Requirements:**
+
+1. **Propose Meaningful Categories:**
+   - Identify 3–5 major categories for organizing existing methods
+   - Categories should be:
+     - Mutually exclusive (methods belong to one category)
+     - Collectively exhaustive (all methods fit somewhere)
+     - Theoretically grounded (based on meaningful distinctions)
+     - Practically useful (help readers understand the landscape)
+   - Your structure must be logically justified
+
+2. **Explain Grouping Criteria:**
+   - For each category, explain:
+     - What is the defining characteristic?
+     - What distinguishes this category from others?
+     - What are the underlying principles or assumptions?
+     - What are the advantages and limitations of this approach?
+
+3. **Provide Examples:**
+   - For each category, provide:
+     - At least one concrete example method/model
+     - Brief explanation of why it fits this category
+     - Key characteristics that exemplify the category
+     - Reference: Cite using format [N] where N corresponds to references in the Available References list
+
+4. **Include a Table if Helpful:**
+   - Create a classification table showing:
+     - Categories as rows or columns
+     - Key characteristics as columns or rows
+     - Example methods in cells
+   - Use markdown table format
+
+5. **Visual Organization:**
+   - Explain how categories relate to each other
+   - Identify any hierarchical relationships
+   - Note any overlapping or hybrid approaches
+
+**Common Classification Dimensions (use as inspiration, not limitation):**
+- **Methodological approach:** Supervised vs. unsupervised vs. semi-supervised
+- **Architectural design:** Model-based vs. data-driven vs. hybrid
+- **Problem formulation:** Classification vs. generation vs. retrieval
+- **Application domain:** NLP vs. vision vs. multimodal
+- **Learning paradigm:** End-to-end vs. pipeline vs. modular
+- **Theoretical foundation:** Statistical vs. neural vs. symbolic
+- **Training regime:** Pre-training vs. fine-tuning vs. few-shot
+- **Data modality:** Text vs. image vs. multimodal
+
+**Writing Style:**
+- Use formal academic tone
+- Be systematic and clear
+- Use tables or structured lists if helpful
+- Ensure logical flow and coherence
+- Cite all examples with proper references [N]
+- Justify your classification scheme clearly
+
+**IMPORTANT:** This section is part of a single cohesive survey paper. Do NOT include an "Introduction" or "Summary" subsection. Flow directly from the Background section.
+
+**Output Format:**
+## Taxonomy / Classification of Approaches
+
+[Start directly with content connecting to the Background section. Do NOT use "### Introduction" header.]
+
+### Classification Rationale
+
+[Explain the overall approach to classification, why these categories are meaningful, and how the structure is logically justified]
+
+### Classification Table (Optional but Recommended)
+
+| Category | Defining Characteristic | Key Methods | Advantages | Limitations |
+|----------|------------------------|-------------|------------|-------------|
+| [Category 1] | [Characteristic] | [Methods] | [Advantages] | [Limitations] |
+| [Category 2] | [Characteristic] | [Methods] | [Advantages] | [Limitations] |
+| ... | ... | ... | ... | ... |
+
+### Category 1: [Category Name]
+
+**Defining Characteristics:**
+[What makes this category distinct]
+
+**Key Methods:**
+- [Method 1]: [Brief description] [Reference [N]]
+- [Method 2]: [Brief description] [Reference [N]]
+
+**Advantages and Limitations:**
+[Analysis of this category's strengths and weaknesses]
+
+[Repeat for each category]
+
+### Relationships Between Categories
+
+[Explain how categories relate, any hierarchies, overlaps, or hybrid approaches. End by transitioning to the Recent Advances section. Do NOT include a "Summary" subsection.]
+

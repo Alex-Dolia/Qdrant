@@ -1,0 +1,22 @@
+# DeepSeek: Open-Source Web Search System - Dependencies
+# Python 3.8+ required
+
+# Core web search and scraping
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+lxml>=4.9.0  # Faster HTML parsing
+
+# Numerical computing and scoring
+numpy>=1.24.0
+
+# BM25 keyword search
+rank-bm25>=0.2.2
+
+# Semantic embeddings and reranking
+sentence-transformers>=2.2.0
+torch>=2.0.0  # Required by sentence-transformers
+
+# Optional: For advanced search capabilities
+# playwright>=1.40.0  # For JavaScript-heavy sites
+# selenium>=4.15.0  # Alternative browser automation
+

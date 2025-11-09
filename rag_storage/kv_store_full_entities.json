@@ -1,0 +1,22 @@
+{
+  "doc-5e49fade4599f8acbbb23db445224b85": {
+    "entity_names": [
+      "Agency",
+      "Analysis",
+      "Invoice",
+      "Discarded Content",
+      "Page Break",
+      "Contractual Payment Terms",
+      "Expense Reimbursement",
+      "Payment Schedule",
+      "Content Analysis",
+      "Agreement",
+      "Consultancy",
+      "Consultancy Fees",
+      "Agency (Client)"
+    ],
+    "count": 13,
+    "update_time": 1762685538,
+    "_id": "doc-5e49fade4599f8acbbb23db445224b85"
+  }
+}

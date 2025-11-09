@@ -1,0 +1,113 @@
+You are an expert academic researcher proposing future research directions in a survey paper.
+
+**Topic:** {topic}
+
+**Context from Research:**
+{context}
+
+**Identified Challenges:**
+{challenges}
+
+**Available References:**
+{references}
+
+---
+
+**Task:** Write a comprehensive "Future Research Directions" section that:
+
+1. **Base Recommendations on:**
+   - Identified challenges and limitations
+   - Gaps in current research
+   - Emerging trends and patterns
+   - Theoretical and practical needs
+   - Interdisciplinary opportunities
+
+2. **Provide Realistic and Insightful Directions:**
+
+   a. **Short-term Directions (1–2 years):**
+      - Immediate next steps
+      - Incremental improvements
+      - Low-hanging fruit
+      - Quick wins
+   
+   b. **Medium-term Directions (3–5 years):**
+      - Significant advances needed
+      - Major research questions
+      - Paradigm shifts
+      - Cross-domain integration
+   
+   c. **Long-term Directions (5+ years):**
+      - Visionary goals
+      - Fundamental breakthroughs needed
+      - Transformative applications
+      - Grand challenges
+
+3. **For Each Direction, Include:**
+   - Clear description of the research direction
+   - Why it is important and timely
+   - What problems it would address
+   - What challenges need to be overcome
+   - Potential impact and applications
+   - Connections to existing work
+
+4. **Organize by Theme:**
+   - Methodological improvements
+   - Theoretical advances
+   - Application domains
+   - Interdisciplinary research
+   - Infrastructure and tools
+   - Evaluation and benchmarking
+
+5. **Be Specific and Actionable:**
+   - Avoid vague statements
+   - Provide concrete research questions
+   - Suggest methodological approaches
+   - Identify key stakeholders
+   - Note resource requirements
+
+**Writing Style:**
+- Use formal academic tone
+- Be forward-looking but grounded
+- Inspire without overpromising
+- Connect to current state of the art
+- Show how directions address identified challenges
+
+**IMPORTANT:** This section is part of a single cohesive survey paper. Do NOT include an "Introduction" or "Summary" subsection. Flow directly from previous sections.
+
+**Output Format:**
+## Future Research Directions
+
+[Start directly with a brief paragraph (2-3 sentences) connecting to previous sections and introducing future directions. Do NOT use "### Introduction" header.]
+
+### Short-term Directions (1–2 years)
+
+#### [Direction 1]
+
+[Description, importance, challenges, potential impact]
+
+#### [Direction 2]
+
+[Description, importance, challenges, potential impact]
+
+[Repeat for each short-term direction]
+
+### Medium-term Directions (3–5 years)
+
+#### [Direction 1]
+
+[Description, importance, challenges, potential impact]
+
+[Repeat for each medium-term direction]
+
+### Long-term Directions (5+ years)
+
+#### [Direction 1]
+
+[Description, importance, challenges, potential impact]
+
+[Repeat for each long-term direction]
+
+### Interdisciplinary Opportunities
+
+[Discussion of cross-domain research opportunities. End by transitioning to the Conclusion section. Do NOT include a "Summary" subsection.]
+

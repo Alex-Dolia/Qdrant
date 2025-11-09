@@ -1,0 +1,671 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd"><key id="d13" for="edge" attr.name="truncate" attr.type="string"/>
+<key id="d12" for="edge" attr.name="created_at" attr.type="long"/>
+<key id="d11" for="edge" attr.name="file_path" attr.type="string"/>
+<key id="d10" for="edge" attr.name="source_id" attr.type="string"/>
+<key id="d9" for="edge" attr.name="keywords" attr.type="string"/>
+<key id="d8" for="edge" attr.name="description" attr.type="string"/>
+<key id="d7" for="edge" attr.name="weight" attr.type="double"/>
+<key id="d6" for="node" attr.name="truncate" attr.type="string"/>
+<key id="d5" for="node" attr.name="created_at" attr.type="long"/>
+<key id="d4" for="node" attr.name="file_path" attr.type="string"/>
+<key id="d3" for="node" attr.name="source_id" attr.type="string"/>
+<key id="d2" for="node" attr.name="description" attr.type="string"/>
+<key id="d1" for="node" attr.name="entity_type" attr.type="string"/>
+<key id="d0" for="node" attr.name="entity_id" attr.type="string"/>
+<graph edgedefault="undirected"><node id="General Data Protection Regime 2018">
+  <data key="d0">General Data Protection Regime 2018</data>
+  <data key="d1">regulation</data>
+  <data key="d2">Law</data>
+  <data key="d3">chunk-e2335e325b8a93696bf90da5782b39b6</data>
+  <data key="d4">tmpf921tqp8.md</data>
+  <data key="d5">1762685460</data>
+  <data key="d6"></data>
+</node>
+<node id="European Economic Area">
+  <data key="d0">European Economic Area</data>
+  <data key="d1">region</data>
+  <data key="d2">Geography</data>
+  <data key="d3">chunk-e2335e325b8a93696bf90da5782b39b6</data>
+  <data key="d4">tmpf921tqp8.md</data>
+  <data key="d5">1762685460</data>
+  <data key="d6"></data>
+</node>
+<node id="Knowhow">
+  <data key="d0">Knowhow</data>
+  <data key="d1">concept</data>
+  <data key="d2">Technology</data>
+  <data key="d3">chunk-e2335e325b8a93696bf90da5782b39b6</data>
+  <data key="d4">tmpf921tqp8.md</data>
+  <data key="d5">1762685460</data>
+  <data key="d6"></data>
+</node>
+<node id="Semiconductor topography">
+  <data key="d0">Semiconductor topography</data>
+  <data key="d1">concept</data>
+  <data key="d2">Technology</data>
+  <data key="d3">chunk-e2335e325b8a93696bf90da5782b39b6</data>
+  <data key="d4">tmpf921tqp8.md</data>
+  <data key="d5">1762685460</data>
+  <data key="d6"></data>
+</node>
+<node id="Database">
+  <data key="d0">Database</data>
+  <data key="d1">concept</data>
+  <data key="d2">Data Management</data>
+  <data key="d3">chunk-e2335e325b8a93696bf90da5782b39b6</data>
+  <data key="d4">tmpf921tqp8.md</data>
+  <data key="d5">1762685460</data>
+  <data key="d6"></data>
+</node>
+<node id="Domain name">
+  <data key="d0">Domain name</data>
+  <data key="d1">concept</data>
+  <data key="d2">Internet</data>
+  <data key="d3">chunk-e2335e325b8a93696bf90da5782b39b6</data>
+  <data key="d4">tmpf921tqp8.md</data>
+  <data key="d5">1762685460</data>
+  <data key="d6"></data>
+</node>
+<node id="Business name">
+  <data key="d0">Business name</data>
+  <data key="d1">concept</data>
+  <data key="d2">Company</data>
+  <data key="d3">chunk-e2335e325b8a93696bf90da5782b39b6</data>
+  <data key="d4">tmpf921tqp8.md</data>
+  <data key="d5">1762685460</data>
+  <data key="d6"></data>
+</node>
+<node id="Trade mark">
+  <data key="d0">Trade mark</data>
+  <data key="d1">concept</data>
+  <data key="d2">Branding</data>
+  <data key="d3">chunk-e2335e325b8a93696bf90da5782b39b6</data>
+  <data key="d4">tmpf921tqp8.md</data>
+  <data key="d5">1762685460</data>
+  <data key="d6"></data>
+</node>
+<node id="Get-up">
+  <data key="d0">Get-up</data>
+  <data key="d1">concept</data>
+  <data key="d2">Design</data>
+  <data key="d3">chunk-e2335e325b8a93696bf90da5782b39b6</data>
+  <data key="d4">tmpf921tqp8.md</data>
+  <data key="d5">1762685463</data>
+  <data key="d6"></data>
+</node>
+<node id="clause">
+  <data key="d0">clause</data>
+  <data key="d1">concept</data>
+  <data key="d2">content</data>
+  <data key="d3">chunk-fb5095b4f2089a23b707d76eebebfdab</data>
+  <data key="d4">tmpf921tqp8.md</data>
+  <data key="d5">1762685463</data>
+  <data key="d6"></data>
+</node>
+<node id="expenses">
+  <data key="d0">expenses</data>
+  <data key="d1">concept</data>
+  <data key="d2">content</data>
+  <data key="d3">chunk-fb5095b4f2089a23b707d76eebebfdab</data>
+  <data key="d4">tmpf921tqp8.md</data>
+  <data key="d5">1762685463</data>
+  <data key="d6"></data>
+</node>
+<node id="National Insurance">
+  <data key="d0">National Insurance</data>
+  <data key="d1">concept</data>
+  <data key="d2">content</data>
+  <data key="d3">chunk-fb5095b4f2089a23b707d76eebebfdab</data>
+  <data key="d4">tmpf921tqp8.md</data>
+  <data key="d5">1762685463</data>
+  <data key="d6"></data>
+</node>
+<node id="Agency Workers Regulations 2010">
+  <data key="d0">Agency Workers Regulations 2010</data>
+  <data key="d1">content</data>
+  <data key="d2">reference</data>
+  <data key="d3">chunk-fb5095b4f2089a23b707d76eebebfdab</data>
+  <data key="d4">tmpf921tqp8.md</data>
+  <data key="d5">1762685463</data>
+  <data key="d6"></data>
+</node>
+<node id="Substitute">
+  <data key="d0">Substitute</data>
+  <data key="d1">concept</data>
+  <data key="d2">content</data>
+  <data key="d3">chunk-fb5095b4f2089a23b707d76eebebfdab</data>
+  <data key="d4">tmpf921tqp8.md</data>
+  <data key="d5">1762685463</data>
+  <data key="d6"></data>
+</node>
+<node id="Full and Comprehensive Policy of Insurance">
+  <data key="d0">Full and Comprehensive Policy of Insurance</data>
+  <data key="d1">content</data>
+  <data key="d2">coverage</data>
+  <data key="d3">chunk-fb5095b4f2089a23b707d76eebebfdab</data>
+  <data key="d4">tmpf921tqp8.md</data>
+  <data key="d5">1762685463</data>
+  <data key="d6"></data>
+</node>
+<node id="Placement">
+  <data key="d0">Placement</data>
+  <data key="d1">concept</data>
+  <data key="d2">content</data>
+  <data key="d3">chunk-fb5095b4f2089a23b707d76eebebfdab</data>
+  <data key="d4">tmpf921tqp8.md</data>
+  <data key="d5">1762685463</data>
+  <data key="d6"></data>
+</node>
+<node id="Personnel or any Substitute (either alone or with any other person)">
+  <data key="d0">Personnel or any Substitute (either alone or with any other person)</data>
+  <data key="d1">organization</data>
+  <data key="d2">entity</data>
+  <data key="d3">chunk-a9a6f1c1d49dd5262513eec94105a299</data>
+  <data key="d4">tmpf921tqp8.md</data>
+  <data key="d5">1762685465</data>
+  <data key="d6"></data>
+</node>
+<node id="The Agency">
+  <data key="d0">The Agency</data>
+  <data key="d1">organization</data>
+  <data key="d2">entity</data>
+  <data key="d3">chunk-a9a6f1c1d49dd5262513eec94105a299</data>
+  <data key="d4">tmpf921tqp8.md</data>
+  <data key="d5">1762685465</data>
+  <data key="d6"></data>
+</node>
+<node id="Contracts (Rights of Third Parties) Act 1999">
+  <data key="d0">Contracts (Rights of Third Parties) Act 1999</data>
+  <data key="d1">act</data>
+  <data key="d2">Legal document</data>
+  <data key="d3">chunk-6e6ffddc361437bdac2c129ab2b81135</data>
+  <data key="d4">tmpf921tqp8.md</data>
+  <data key="d5">1762685465</data>
+  <data key="d6"></data>
+</node>
+<node id="Alex Doyle">
+  <data key="d0">Alex Doyle</data>
+  <data key="d1">person</data>
+  <data key="d2">Full name</data>
+  <data key="d3">chunk-6e6ffddc361437bdac2c129ab2b81135</data>
+  <data key="d4">tmpf921tqp8.md</data>
+  <data key="d5">1762685465</data>
+  <data key="d6"></data>
+</node>
+<node id="Dive Intellect Ltd">
+  <data key="d0">Dive Intellect Ltd</data>
+  <data key="d1">organization</data>
+  <data key="d2">Company name</data>
+  <data key="d3">chunk-6e6ffddc361437bdac2c129ab2b81135</data>
+  <data key="d4">tmpf921tqp8.md</data>
+  <data key="d5">1762685465</data>
+  <data key="d6"></data>
+</node>
+<node id="Glasgow Associates">
+  <data key="d0">Glasgow Associates</data>
+  <data key="d1">organization</data>
+  <data key="d2">End client name</data>
+  <data key="d3">chunk-6e6ffddc361437bdac2c129ab2b81135</data>
+  <data key="d4">tmpf921tqp8.md</data>
+  <data key="d5">1762685465</data>
+  <data key="d6"></data>
+</node>
+<node id="hold legal title">
+  <data key="d0">hold legal title</data>
+  <data key="d3">chunk-a9a6f1c1d49dd5262513eec94105a299</data>
+  <data key="d2">trust</data>
+  <data key="d1">UNKNOWN</data>
+  <data key="d4">tmpf921tqp8.md</data>
+  <data key="d5">1762685468</data>
+  <data key="d6"></data>
+</node>
+<node id="relation&gt;The Consultancy">
+  <data key="d0">relation&gt;The Consultancy</data>
+  <data key="d3">chunk-a9a6f1c1d49dd5262513eec94105a299</data>
+  <data key="d2">obtained</data>
+  <data key="d1">UNKNOWN</data>
+  <data key="d4">tmpf921tqp8.md</data>
+  <data key="d5">1762685468</data>
+  <data key="d6"></data>
+</node>
+<node id="does not vest">
+  <data key="d0">does not vest</data>
+  <data key="d3">chunk-a9a6f1c1d49dd5262513eec94105a299</data>
+  <data key="d2">by operation</data>
+  <data key="d1">UNKNOWN</data>
+  <data key="d4">tmpf921tqp8.md</data>
+  <data key="d5">1762685468</data>
+  <data key="d6"></data>
+</node>
+<node id="may terminate this agreement">
+  <data key="d0">may terminate this agreement</data>
+  <data key="d3">chunk-a9a6f1c1d49dd5262513eec94105a299</data>
+  <data key="d2">Consultancy</data>
+  <data key="d1">UNKNOWN</data>
+  <data key="d4">tmpf921tqp8.md</data>
+  <data key="d5">1762685468</data>
+  <data key="d6"></data>
+</node>
+<node id="relation&gt;The Consultancy and the Consultancy Personnel or Substitute">
+  <data key="d0">relation&gt;The Consultancy and the Consultancy Personnel or Substitute</data>
+  <data key="d3">chunk-a9a6f1c1d49dd5262513eec94105a299</data>
+  <data key="d2">trust</data>
+  <data key="d1">UNKNOWN</data>
+  <data key="d4">tmpf921tqp8.md</data>
+  <data key="d5">1762685470</data>
+  <data key="d6"></data>
+</node>
+<node id="relation&gt;The Agency">
+  <data key="d0">relation&gt;The Agency</data>
+  <data key="d3">chunk-a9a6f1c1d49dd5262513eec94105a299</data>
+  <data key="d2">Consultancy</data>
+  <data key="d1">UNKNOWN</data>
+  <data key="d4">tmpf921tqp8.md</data>
+  <data key="d5">1762685470</data>
+  <data key="d6"></data>
+</node>
+<node id="warrants that">
+  <data key="d0">warrants that</data>
+  <data key="d3">chunk-a9a6f1c1d49dd5262513eec94105a299</data>
+  <data key="d2">obtained</data>
+  <data key="d1">UNKNOWN</data>
+  <data key="d4">tmpf921tqp8.md</data>
+  <data key="d5">1762685470</data>
+  <data key="d6"></data>
+</node>
+<node id="relation&gt;Client IPR">
+  <data key="d0">relation&gt;Client IPR</data>
+  <data key="d3">chunk-a9a6f1c1d49dd5262513eec94105a299</data>
+  <data key="d2">by operation</data>
+  <data key="d1">UNKNOWN</data>
+  <data key="d4">tmpf921tqp8.md</data>
+  <data key="d5">1762685470</data>
+  <data key="d6"></data>
+</node>
+<node id="discarded_2417dc774c16e30c865aaf47923d58fe">
+  <data key="d0">discarded_2417dc774c16e30c865aaf47923d58fe</data>
+  <data key="d1">discarded</data>
+  <data key="d2">Based on the provided context and discarded content, I've performed a detailed analysis to provide a...</data>
+  <data key="d3">chunk-dd51ce5ea5e444cd641cb8dba451523d</data>
+  <data key="d4">tmpr889w1wj.md</data>
+  <data key="d5">1762685489</data>
+</node>
+<node id="Page Break or Section Separator (discarded)">
+  <data key="d0">Page Break or Section Separator (discarded)</data>
+  <data key="d1">discarded</data>
+  <data key="d2">A page break or section separator on page 14, likely separating contract details from employee placement terms. It provides context for the subsequent clauses and aids in navigation of the agreement's structure.</data>
+  <data key="d3">chunk-e3c15ba4a71c2d0585735585e735599d</data>
+  <data key="d4">tmpr889w1wj.md</data>
+  <data key="d5">1762685489</data>
+</node>
+<node id="Content Analysis">
+  <data key="d0">Content Analysis</data>
+  <data key="d1">category</data>
+  <data key="d2">Content Analysis is a process of examining content to understand its meaning and relevance.&lt;SEP&gt;A method of evaluating digital content by identifying its characteristics and context to provide insights for decision-making.</data>
+  <data key="d3">chunk-dd51ce5ea5e444cd641cb8dba451523d&lt;SEP&gt;chunk-e3c15ba4a71c2d0585735585e735599d</data>
+  <data key="d4">tmpr889w1wj.md</data>
+  <data key="d5">1762685507</data>
+  <data key="d6"></data>
+</node>
+<node id="Agreement">
+  <data key="d0">Agreement</data>
+  <data key="d1">category</data>
+  <data key="d2">The Agreement outlines terms of payment between the Consultancy and the Agency.</data>
+  <data key="d3">chunk-dd51ce5ea5e444cd641cb8dba451523d</data>
+  <data key="d4">tmpr889w1wj.md</data>
+  <data key="d5">1762685507</data>
+  <data key="d6"></data>
+</node>
+<node id="Consultancy Fees">
+  <data key="d0">Consultancy Fees</data>
+  <data key="d1">category</data>
+  <data key="d2">The Consultancy is charging fees to be paid by the Agency.</data>
+  <data key="d3">chunk-dd51ce5ea5e444cd641cb8dba451523d</data>
+  <data key="d4">tmpr889w1wj.md</data>
+  <data key="d5">1762685507</data>
+  <data key="d6"></data>
+</node>
+<node id="Invoice">
+  <data key="d0">Invoice</data>
+  <data key="d1">category</data>
+  <data key="d2">An invoice is a document requesting payment for services rendered by the Consultancy to the Agency.</data>
+  <data key="d3">chunk-dd51ce5ea5e444cd641cb8dba451523d</data>
+  <data key="d4">tmpr889w1wj.md</data>
+  <data key="d5">1762685507</data>
+  <data key="d6"></data>
+</node>
+<node id="Payment Schedule">
+  <data key="d0">Payment Schedule</data>
+  <data key="d1">category</data>
+  <data key="d2">A payment schedule outlines when payments are due and how much is owed to the Consultancy by the Agency.</data>
+  <data key="d3">chunk-dd51ce5ea5e444cd641cb8dba451523d</data>
+  <data key="d4">tmpr889w1wj.md</data>
+  <data key="d5">1762685507</data>
+  <data key="d6"></data>
+</node>
+<node id="Expense Reimbursement">
+  <data key="d0">Expense Reimbursement</data>
+  <data key="d1">category</data>
+  <data key="d2">Expense reimbursement refers to the process of recovering costs incurred by the Consultancy in performing services for the Agency.</data>
+  <data key="d3">chunk-dd51ce5ea5e444cd641cb8dba451523d</data>
+  <data key="d4">tmpr889w1wj.md</data>
+  <data key="d5">1762685507</data>
+  <data key="d6"></data>
+</node>
+<node id="Discarded Content">
+  <data key="d0">Discarded Content</data>
+  <data key="d1">content</data>
+  <data key="d2">Discarded Content refers to the portion of text that has been removed or discarded from further analysis.</data>
+  <data key="d3">chunk-e3c15ba4a71c2d0585735585e735599d</data>
+  <data key="d4">tmpr889w1wj.md</data>
+  <data key="d5">1762685507</data>
+  <data key="d6"></data>
+</node>
+<node id="Page Break">
+  <data key="d0">Page Break</data>
+  <data key="d1">formattingelement</data>
+  <data key="d2">A page break is a formatting element used to separate sections or pages in a document.</data>
+  <data key="d3">chunk-e3c15ba4a71c2d0585735585e735599d</data>
+  <data key="d4">tmpr889w1wj.md</data>
+  <data key="d5">1762685507</data>
+  <data key="d6"></data>
+</node>
+<node id="Analysis">
+  <data key="d0">Analysis</data>
+  <data key="d1">concept</data>
+  <data key="d2">Analysis is a process of examining content to understand its meaning and relevance.</data>
+  <data key="d3">chunk-e3c15ba4a71c2d0585735585e735599d</data>
+  <data key="d4">tmpr889w1wj.md</data>
+  <data key="d5">1762685509</data>
+  <data key="d6"></data>
+</node>
+<node id="Agency">
+  <data key="d0">Agency</data>
+  <data key="d3">chunk-dd51ce5ea5e444cd641cb8dba451523d</data>
+  <data key="d2">The Consultancy is working with the Agency on a project.</data>
+  <data key="d1">UNKNOWN</data>
+  <data key="d4">tmpr889w1wj.md</data>
+  <data key="d5">1762685512</data>
+  <data key="d6"></data>
+</node>
+<node id="Consultancy">
+  <data key="d0">Consultancy</data>
+  <data key="d3">chunk-dd51ce5ea5e444cd641cb8dba451523d</data>
+  <data key="d2">The Consultancy is working with the Agency on a project.</data>
+  <data key="d1">UNKNOWN</data>
+  <data key="d4">tmpr889w1wj.md</data>
+  <data key="d5">1762685514</data>
+  <data key="d6"></data>
+</node>
+<node id="Contractual Payment Terms">
+  <data key="d0">Contractual Payment Terms</data>
+  <data key="d3">chunk-dd51ce5ea5e444cd641cb8dba451523d</data>
+  <data key="d2">The Contractual Payment Terms detail how the Agency must pay the Consultancy for services rendered.</data>
+  <data key="d1">UNKNOWN</data>
+  <data key="d4">tmpr889w1wj.md</data>
+  <data key="d5">1762685519</data>
+  <data key="d6"></data>
+</node>
+<node id="Agency (Client)">
+  <data key="d0">Agency (Client)</data>
+  <data key="d3">chunk-dd51ce5ea5e444cd641cb8dba451523d</data>
+  <data key="d2">The Agency has contractual obligations with the Consultancy including specific payment terms outlined in Section 6.1.</data>
+  <data key="d1">UNKNOWN</data>
+  <data key="d4">tmpr889w1wj.md</data>
+  <data key="d5">1762685521</data>
+  <data key="d6"></data>
+</node>
+<edge source="Contracts (Rights of Third Parties) Act 1999" target="Glasgow Associates">
+  <data key="d7">1.0</data>
+  <data key="d8">Legislative framework</data>
+  <data key="d9">Legal framework application</data>
+  <data key="d10">chunk-6e6ffddc361437bdac2c129ab2b81135</data>
+  <data key="d11">tmpf921tqp8.md</data>
+  <data key="d12">1762685470</data>
+  <data key="d13"></data>
+</edge>
+<edge source="Alex Doyle" target="Dive Intellect Ltd">
+  <data key="d7">1.0</data>
+  <data key="d8">Job employment</data>
+  <data key="d9">Employment relationship</data>
+  <data key="d10">chunk-6e6ffddc361437bdac2c129ab2b81135</data>
+  <data key="d11">tmpf921tqp8.md</data>
+  <data key="d12">1762685470</data>
+  <data key="d13"></data>
+</edge>
+<edge source="Dive Intellect Ltd" target="Glasgow Associates">
+  <data key="d7">1.0</data>
+  <data key="d8">Business partnership</data>
+  <data key="d9">Contractor-client relationship</data>
+  <data key="d10">chunk-6e6ffddc361437bdac2c129ab2b81135</data>
+  <data key="d11">tmpf921tqp8.md</data>
+  <data key="d12">1762685468</data>
+  <data key="d13"></data>
+</edge>
+<edge source="hold legal title" target="relation&gt;The Consultancy and the Consultancy Personnel or Substitute">
+  <data key="d7">2.0</data>
+  <data key="d8">trust</data>
+  <data key="d9">Client IPR</data>
+  <data key="d10">chunk-a9a6f1c1d49dd5262513eec94105a299</data>
+  <data key="d11">tmpf921tqp8.md</data>
+  <data key="d12">1762685472</data>
+  <data key="d13"></data>
+</edge>
+<edge source="relation&gt;The Consultancy" target="warrants that">
+  <data key="d7">2.0</data>
+  <data key="d8">obtained</data>
+  <data key="d9">Client IPR</data>
+  <data key="d10">chunk-a9a6f1c1d49dd5262513eec94105a299</data>
+  <data key="d11">tmpf921tqp8.md</data>
+  <data key="d12">1762685472</data>
+  <data key="d13"></data>
+</edge>
+<edge source="does not vest" target="relation&gt;Client IPR">
+  <data key="d7">2.0</data>
+  <data key="d8">by operation</data>
+  <data key="d9">automatically</data>
+  <data key="d10">chunk-a9a6f1c1d49dd5262513eec94105a299</data>
+  <data key="d11">tmpf921tqp8.md</data>
+  <data key="d12">1762685473</data>
+  <data key="d13"></data>
+</edge>
+<edge source="may terminate this agreement" target="relation&gt;The Agency">
+  <data key="d7">2.0</data>
+  <data key="d8">Consultancy</data>
+  <data key="d9">with immediate effect</data>
+  <data key="d10">chunk-a9a6f1c1d49dd5262513eec94105a299</data>
+  <data key="d11">tmpf921tqp8.md</data>
+  <data key="d12">1762685472</data>
+  <data key="d13"></data>
+</edge>
+<edge source="discarded_2417dc774c16e30c865aaf47923d58fe" target="Content Analysis">
+  <data key="d7">10.0</data>
+  <data key="d8">Entity Content Analysis belongs to discarded_2417dc774c16e30c865aaf47923d58fe</data>
+  <data key="d9">belongs_to,contained_in,part_of</data>
+  <data key="d10">chunk-dd51ce5ea5e444cd641cb8dba451523d</data>
+  <data key="d11">C:\Users\alexd\AppData\Local\Temp\tmpr889w1wj.md</data>
+  <data key="d12">1762685512</data>
+  <data key="d13"></data>
+</edge>
+<edge source="discarded_2417dc774c16e30c865aaf47923d58fe" target="Agreement">
+  <data key="d7">10.0</data>
+  <data key="d8">Entity Agreement belongs to discarded_2417dc774c16e30c865aaf47923d58fe</data>
+  <data key="d9">belongs_to,contained_in,part_of</data>
+  <data key="d10">chunk-dd51ce5ea5e444cd641cb8dba451523d</data>
+  <data key="d11">C:\Users\alexd\AppData\Local\Temp\tmpr889w1wj.md</data>
+  <data key="d12">1762685514</data>
+  <data key="d13"></data>
+</edge>
+<edge source="discarded_2417dc774c16e30c865aaf47923d58fe" target="Consultancy Fees">
+  <data key="d7">10.0</data>
+  <data key="d8">Entity Consultancy Fees belongs to discarded_2417dc774c16e30c865aaf47923d58fe</data>
+  <data key="d9">belongs_to,contained_in,part_of</data>
+  <data key="d10">chunk-dd51ce5ea5e444cd641cb8dba451523d</data>
+  <data key="d11">C:\Users\alexd\AppData\Local\Temp\tmpr889w1wj.md</data>
+  <data key="d12">1762685516</data>
+  <data key="d13"></data>
+</edge>
+<edge source="discarded_2417dc774c16e30c865aaf47923d58fe" target="Invoice">
+  <data key="d7">10.0</data>
+  <data key="d8">Entity Invoice belongs to discarded_2417dc774c16e30c865aaf47923d58fe</data>
+  <data key="d9">belongs_to,contained_in,part_of</data>
+  <data key="d10">chunk-dd51ce5ea5e444cd641cb8dba451523d</data>
+  <data key="d11">C:\Users\alexd\AppData\Local\Temp\tmpr889w1wj.md</data>
+  <data key="d12">1762685519</data>
+  <data key="d13"></data>
+</edge>
+<edge source="discarded_2417dc774c16e30c865aaf47923d58fe" target="Payment Schedule">
+  <data key="d7">10.0</data>
+  <data key="d8">Entity Payment Schedule belongs to discarded_2417dc774c16e30c865aaf47923d58fe</data>
+  <data key="d9">belongs_to,contained_in,part_of</data>
+  <data key="d10">chunk-dd51ce5ea5e444cd641cb8dba451523d</data>
+  <data key="d11">C:\Users\alexd\AppData\Local\Temp\tmpr889w1wj.md</data>
+  <data key="d12">1762685521</data>
+  <data key="d13"></data>
+</edge>
+<edge source="discarded_2417dc774c16e30c865aaf47923d58fe" target="Expense Reimbursement">
+  <data key="d7">10.0</data>
+  <data key="d8">Entity Expense Reimbursement belongs to discarded_2417dc774c16e30c865aaf47923d58fe</data>
+  <data key="d9">belongs_to,contained_in,part_of</data>
+  <data key="d10">chunk-dd51ce5ea5e444cd641cb8dba451523d</data>
+  <data key="d11">C:\Users\alexd\AppData\Local\Temp\tmpr889w1wj.md</data>
+  <data key="d12">1762685524</data>
+  <data key="d13"></data>
+</edge>
+<edge source="Page Break or Section Separator (discarded)" target="Content Analysis">
+  <data key="d7">10.0</data>
+  <data key="d8">Entity Content Analysis belongs to Page Break or Section Separator (discarded)</data>
+  <data key="d9">belongs_to,contained_in,part_of</data>
+  <data key="d10">chunk-e3c15ba4a71c2d0585735585e735599d</data>
+  <data key="d11">C:\Users\alexd\AppData\Local\Temp\tmpr889w1wj.md</data>
+  <data key="d12">1762685528</data>
+  <data key="d13"></data>
+</edge>
+<edge source="Page Break or Section Separator (discarded)" target="Analysis">
+  <data key="d7">10.0</data>
+  <data key="d8">Entity Analysis belongs to Page Break or Section Separator (discarded)</data>
+  <data key="d9">belongs_to,contained_in,part_of</data>
+  <data key="d10">chunk-e3c15ba4a71c2d0585735585e735599d</data>
+  <data key="d11">C:\Users\alexd\AppData\Local\Temp\tmpr889w1wj.md</data>
+  <data key="d12">1762685531</data>
+  <data key="d13"></data>
+</edge>
+<edge source="Page Break or Section Separator (discarded)" target="Page Break">
+  <data key="d7">10.0</data>
+  <data key="d8">Entity Page Break belongs to Page Break or Section Separator (discarded)</data>
+  <data key="d9">belongs_to,contained_in,part_of</data>
+  <data key="d10">chunk-e3c15ba4a71c2d0585735585e735599d</data>
+  <data key="d11">C:\Users\alexd\AppData\Local\Temp\tmpr889w1wj.md</data>
+  <data key="d12">1762685533</data>
+  <data key="d13"></data>
+</edge>
+<edge source="Page Break or Section Separator (discarded)" target="Discarded Content">
+  <data key="d7">10.0</data>
+  <data key="d8">Entity Discarded Content belongs to Page Break or Section Separator (discarded)</data>
+  <data key="d9">belongs_to,contained_in,part_of</data>
+  <data key="d10">chunk-e3c15ba4a71c2d0585735585e735599d</data>
+  <data key="d11">C:\Users\alexd\AppData\Local\Temp\tmpr889w1wj.md</data>
+  <data key="d12">1762685536</data>
+  <data key="d13"></data>
+</edge>
+<edge source="Content Analysis" target="Discarded Content">
+  <data key="d7">2.0</data>
+  <data key="d8">The discarded content is classified as part of the broader Content Analysis process that determines the scope of analysis.&lt;SEP&gt;Content Analysis involves classifying and potentially removing discarded content from the analysis scope.</data>
+  <data key="d9">content classification,removal,scope</data>
+  <data key="d10">chunk-e3c15ba4a71c2d0585735585e735599d</data>
+  <data key="d11">tmpr889w1wj.md</data>
+  <data key="d12">1762685521</data>
+  <data key="d13"></data>
+</edge>
+<edge source="Content Analysis" target="Page Break">
+  <data key="d7">1.0</data>
+  <data key="d8">Page breaks are used to organize and structure content in documents as part of Content Analysis.</data>
+  <data key="d9">content organization,formatting element</data>
+  <data key="d10">chunk-e3c15ba4a71c2d0585735585e735599d</data>
+  <data key="d11">tmpr889w1wj.md</data>
+  <data key="d12">1762685524</data>
+  <data key="d13"></data>
+</edge>
+<edge source="Content Analysis" target="Analysis">
+  <data key="d7">1.0</data>
+  <data key="d8">Content Analysis aims to examine and understand the meaning of content, which involves analyzing its structure and organization.</data>
+  <data key="d9">content examination,understanding</data>
+  <data key="d10">chunk-e3c15ba4a71c2d0585735585e735599d</data>
+  <data key="d11">tmpr889w1wj.md</data>
+  <data key="d12">1762685526</data>
+  <data key="d13"></data>
+</edge>
+<edge source="Consultancy Fees" target="Agency">
+  <data key="d7">1.0</data>
+  <data key="d8">The Agency must pay the Consultancy's fees in accordance with the Agreement.</data>
+  <data key="d9">client-fee payment,financial responsibility</data>
+  <data key="d10">chunk-dd51ce5ea5e444cd641cb8dba451523d</data>
+  <data key="d11">tmpr889w1wj.md</data>
+  <data key="d12">1762685524</data>
+  <data key="d13"></data>
+</edge>
+<edge source="Invoice" target="Agency">
+  <data key="d7">1.0</data>
+  <data key="d8">The Agency must create an invoice for payment of the Consultancy's fees.</data>
+  <data key="d9">client-invoice,financial transaction</data>
+  <data key="d10">chunk-dd51ce5ea5e444cd641cb8dba451523d</data>
+  <data key="d11">tmpr889w1wj.md</data>
+  <data key="d12">1762685526</data>
+  <data key="d13"></data>
+</edge>
+<edge source="Payment Schedule" target="Agency">
+  <data key="d7">1.0</data>
+  <data key="d8">The Agency must follow the payment schedule for making timely payments to the Consultancy.</data>
+  <data key="d9">client-payment obligation,financial management</data>
+  <data key="d10">chunk-dd51ce5ea5e444cd641cb8dba451523d</data>
+  <data key="d11">tmpr889w1wj.md</data>
+  <data key="d12">1762685529</data>
+  <data key="d13"></data>
+</edge>
+<edge source="Expense Reimbursement" target="Consultancy">
+  <data key="d7">1.0</data>
+  <data key="d8">The Consultancy is eligible for expense reimbursement from the Agency for certain costs associated with providing their services.</data>
+  <data key="d9">financial assistance,provider-reimbursed expenses</data>
+  <data key="d10">chunk-dd51ce5ea5e444cd641cb8dba451523d</data>
+  <data key="d11">tmpr889w1wj.md</data>
+  <data key="d12">1762685519</data>
+  <data key="d13"></data>
+</edge>
+<edge source="Discarded Content" target="Page Break">
+  <data key="d7">1.0</data>
+  <data key="d8">The discarded content is typically removed from further analysis after identifying the page break.</data>
+  <data key="d9">content removal,formatting element</data>
+  <data key="d10">chunk-e3c15ba4a71c2d0585735585e735599d</data>
+  <data key="d11">tmpr889w1wj.md</data>
+  <data key="d12">1762685526</data>
+  <data key="d13"></data>
+</edge>
+<edge source="Agency" target="Consultancy">
+  <data key="d7">1.0</data>
+  <data key="d8">The Consultancy is working with the Agency on a project.</data>
+  <data key="d9">client-contractor relationship,service agreement</data>
+  <data key="d10">chunk-dd51ce5ea5e444cd641cb8dba451523d</data>
+  <data key="d11">tmpr889w1wj.md</data>
+  <data key="d12">1762685516</data>
+  <data key="d13"></data>
+</edge>
+<edge source="Agency" target="Contractual Payment Terms">
+  <data key="d7">1.0</data>
+  <data key="d8">The Contractual Payment Terms detail how the Agency must pay the Consultancy for services rendered.</data>
+  <data key="d9">client-agreement,financial obligation</data>
+  <data key="d10">chunk-dd51ce5ea5e444cd641cb8dba451523d</data>
+  <data key="d11">tmpr889w1wj.md</data>
+  <data key="d12">1762685521</data>
+  <data key="d13"></data>
+</edge>
+<edge source="Consultancy" target="Agency (Client)">
+  <data key="d7">1.0</data>
+  <data key="d8">The Agency has contractual obligations with the Consultancy including specific payment terms outlined in Section 6.1.</data>
+  <data key="d9">contractual obligations,payment terms</data>
+  <data key="d10">chunk-dd51ce5ea5e444cd641cb8dba451523d</data>
+  <data key="d11">tmpr889w1wj.md</data>
+  <data key="d12">1762685524</data>
+  <data key="d13"></data>
+</edge>
+</graph></graphml>

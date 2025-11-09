@@ -1,0 +1,84 @@
+You are an expert academic researcher creating a comparative analysis table for a survey paper intended for publication in a machine learning research venue.
+
+**Topic:** {topic}
+
+**Context from Research:**
+{context}
+
+**Taxonomy Categories:**
+{taxonomy}
+
+**Recent Advances:**
+{recent_advances}
+
+**Available References:**
+{references}
+
+---
+
+**Task:** Create a comprehensive "Comparative Analysis" section with a detailed comparison table.
+
+**Table Requirements:**
+
+1. **Columns should reflect meaningful evaluation dimensions:**
+   - Scalability (data size, model size, computational requirements)
+   - Data demands (amount, quality, labeling requirements)
+   - Interpretability (explainability, transparency, understandability)
+   - Sample efficiency (few-shot, zero-shot, data efficiency)
+   - Latency (inference time, training time)
+   - Deployment feasibility (ease of deployment, resource requirements)
+   - Safety constraints (robustness, fairness, bias, security)
+   - Performance (accuracy, F1, BLEU, or domain-specific metrics)
+   - Theoretical guarantees (convergence, bounds, provable properties)
+   - Applicability (domains, use cases, limitations)
+
+2. **Rows should represent:**
+   - Major methods/models from the taxonomy
+   - Key approaches discussed in recent advances
+   - Representative techniques from each category
+
+3. **Cell Content:**
+   - Use short, analytical commentary
+   - Not general praise or vague claims
+   - Specific, factual comparisons
+   - Quantitative data when available (e.g., "Requires 100GB+ memory", "Achieves 95% accuracy on X dataset")
+   - Relative comparisons (e.g., "Higher than Y but lower than Z")
+   - Use symbols or abbreviations for brevity: ✓ (yes/strong), ✗ (no/weak), ~ (moderate), N/A (not applicable)
+
+**Writing Style:**
+- Use formal academic tone
+- Be analytical and critical
+- Support claims with citations [N] where N corresponds to references
+- Avoid vague statements like "good performance" — specify what and how much
+- Use precise terminology
+
+**IMPORTANT:** This section is part of a single cohesive survey paper. Do NOT include an "Introduction" or "Summary" subsection. Flow directly from previous sections.
+
+**Output Format:**
+## Comparative Analysis
+
+[Start directly with a brief paragraph (2-3 sentences) connecting to previous sections and introducing the comparative analysis. Do NOT use "### Introduction" header.]
+
+### Comparative Analysis Table
+
+| Method/Model | Scalability | Data Demands | Interpretability | Sample Efficiency | Latency | Deployment | Safety | Performance | Theoretical Guarantees | Applicability |
+|--------------|-------------|--------------|------------------|-------------------|---------|------------|--------|-------------|----------------------|---------------|
+| [Method 1] | [Analysis] | [Analysis] | [Analysis] | [Analysis] | [Analysis] | [Analysis] | [Analysis] | [Analysis] | [Analysis] | [Analysis] |
+| [Method 2] | [Analysis] | [Analysis] | [Analysis] | [Analysis] | [Analysis] | [Analysis] | [Analysis] | [Analysis] | [Analysis] | [Analysis] |
+| [Method 3] | [Analysis] | [Analysis] | [Analysis] | [Analysis] | [Analysis] | [Analysis] | [Analysis] | [Analysis] | [Analysis] | [Analysis] |
+| ... | ... | ... | ... | ... | ... | ... | ... | ... | ... | ... |
+
+**Legend:**
+- ✓ = Strong/Yes
+- ✗ = Weak/No  
+- ~ = Moderate
+- N/A = Not Applicable
+
+### Detailed Analysis
+
+[Provide detailed commentary on key comparisons, patterns, and insights from the table]
+
+### Key Insights
+
+[Summarize main findings from the comparative analysis. End by transitioning to the Challenges section. Do NOT include a "Summary" subsection.]
+

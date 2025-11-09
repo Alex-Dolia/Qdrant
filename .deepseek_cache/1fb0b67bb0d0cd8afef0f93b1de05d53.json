@@ -1,0 +1,117 @@
+{
+  "timestamp": "2025-11-09T08:18:36.268232",
+  "query": "kernel methods_duckduckgo_rrf",
+  "engine": "duckduckgo",
+  "results": [
+    {
+      "title": "Understanding Kernel Methods in Machine Learning",
+      "url": "https://datamites.com/blog/understanding-kernel-methods-in-machine-learning/",
+      "snippet": "Explorekernelmethodsin machine learning, their role in handling complex data, and how they enhance algorithms like SVM for better predictions and performance.",
+      "source": "datamites.com",
+      "domain": "datamites.com",
+      "bm25_score": 1.0,
+      "embedding_score": 0.0,
+      "relevance_score": 0.01639344262295082,
+      "rrf_score": 0.01639344262295082
+    },
+    {
+      "title": "Kernel Methods in Machine Learning - Nature",
+      "url": "https://www.nature.com/research-intelligence/nri-topic-summaries/kernel-methods-in-machine-learning-micro-27453",
+      "snippet": "Kernelmethodsrepresent a cornerstone in modern machine learning, enabling algorithms to efficiently derive non-linear patterns by implicitly mapping data into high‐dimensional feature spaces ...",
+      "source": "nature.com",
+      "domain": "nature.com",
+      "bm25_score": 0.9613125089554376,
+      "embedding_score": 0.0,
+      "relevance_score": 0.016129032258064516,
+      "rrf_score": 0.016129032258064516
+    },
+    {
+      "title": "Kernel Methods in Machine Learning with Python",
+      "url": "https://machinelearningmastery.com/kernel-methods-machine-learning-python/",
+      "snippet": "Learn how to usekernelmethodsto perform non-linear transformations of data without explicitly computing the transformed feature space. Explore thekerneltrick, SVMs, andkernelPCA with practical examples and code in Python.",
+      "source": "machinelearningmastery.com",
+      "domain": "machinelearningmastery.com",
+      "bm25_score": 0.9030825144703191,
+      "embedding_score": 0.0,
+      "relevance_score": 0.015873015873015872,
+      "rrf_score": 0.015873015873015872
+    },
+    {
+      "title": "Kernel Methods in Machine Learning: Theory and Practice",
+      "url": "https://medium.com/@qjbqvwzmg/kernel-methods-in-machine-learning-theory-and-practice-b030bbe0eacc",
+      "snippet": "Machine learning has become an integral part of many industries, driving innovation and efficiency. Among the various techniques in this field,kernelmethodshold a special place due to their ...",
+      "source": "medium.com",
+      "domain": "medium.com",
+      "bm25_score": 0.892272908631467,
+      "embedding_score": 0.0,
+      "relevance_score": 0.015625,
+      "rrf_score": 0.015625
+    },
+    {
+      "title": "PDF15.1 Kernel Methods - Princeton University",
+      "url": "https://www.cs.princeton.edu/~rlivni/cos511/lectures/lect15.pdf",
+      "snippet": "Learn how to usekernelfunctions to map non-linear problems into high dimensional feature spaces and learn linear classes. See examples ofkernelfunctions, RKHS, and sample complexity of learning in an RKHS.",
+      "source": "cs.princeton.edu",
+      "domain": "cs.princeton.edu",
+      "bm25_score": 0.892272908631467,
+      "embedding_score": 0.0,
+      "relevance_score": 0.015384615384615385,
+      "rrf_score": 0.015384615384615385
+    },
+    {
+      "title": "Kernel Methods: A Simple Introduction - Towards Data Science",
+      "url": "https://towardsdatascience.com/kernel-methods-a-simple-introduction-4a26dcbe4ebd/",
+      "snippet": "Learn howkernelmethodsusekernelsto map low dimensional input data into a high dimensional feature space, where simple linear models can be trained. See examples of linear regression with RBFs and how they can create non-linear mappings.",
+      "source": "towardsdatascience.com",
+      "domain": "towardsdatascience.com",
+      "bm25_score": 0.8232912013744017,
+      "embedding_score": 0.0,
+      "relevance_score": 0.015151515151515152,
+      "rrf_score": 0.015151515151515152
+    },
+    {
+      "title": "Kernel Methods in Machine Learning: A Comprehensive Guide",
+      "url": "https://www.appliedaicourse.com/blog/kernel-methods-in-machine-learning/",
+      "snippet": "Kernelmethodsare a class of machine learning algorithms that enable efficient data transformation into higher-dimensional spaces without explicitly computing those dimensions. They are widely used in tasks such as classification and regression, particularly in Support Vector Machines (SVMs) andKernelRidge Regression, to capture complex patterns in data. UnderstandingKernelMethodsKernel...",
+      "source": "appliedaicourse.com",
+      "domain": "appliedaicourse.com",
+      "bm25_score": 0.7269476649691191,
+      "embedding_score": 0.0,
+      "relevance_score": 0.014925373134328358,
+      "rrf_score": 0.014925373134328358
+    },
+    {
+      "title": "Kernel method - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Kernel_method",
+      "snippet": "Kernelmethodsare a class of algorithms that usekernelfunctions to operate in a high-dimensional feature space without explicit computation. Learn about the motivation, mathematics, applications and examples ofkernelmethods, such as support-vector machines, Gaussian processes andkernelsmoother.",
+      "source": "en.wikipedia.org",
+      "domain": "en.wikipedia.org",
+      "bm25_score": 0.4357059358358228,
+      "embedding_score": 0.0,
+      "relevance_score": 0.014705882352941176,
+      "rrf_score": 0.014705882352941176
+    },
+    {
+      "title": "What is the Kernel Method? Definition, How it Works & Applications",
+      "url": "https://www.techopedia.com/definition/kernel-method",
+      "snippet": "The use ofkernelfunctions is what makes thekernelmethodso effective. These functions, such as the polynomial, radial basis function (RBF), and sigmoidkernels, define how data is transformed and compared in the new space.",
+      "source": "techopedia.com",
+      "domain": "techopedia.com",
+      "bm25_score": 0.4209436566695947,
+      "embedding_score": 0.0,
+      "relevance_score": 0.014492753623188406,
+      "rrf_score": 0.014492753623188406
+    },
+    {
+      "title": "PDFKernel methods: an overview - University of California, Berkeley",
+      "url": "https://people.eecs.berkeley.edu/~jordan/kernels/0521813972c02_p25-46.pdf",
+      "snippet": "Learn how to usekernelmethodsto embed data into a feature space and discover linear patterns using algorithms based on linear algebra, geometry and statistics. The book covers the basics ofkernelfunctions, feature spaces, linear regression and nonlinear mappings with examples and code.",
+      "source": "people.eecs.berkeley.edu",
+      "domain": "people.eecs.berkeley.edu",
+      "bm25_score": 0.3901035004070241,
+      "embedding_score": 0.0,
+      "relevance_score": 0.014285714285714285,
+      "rrf_score": 0.014285714285714285
+    }
+  ]
+}

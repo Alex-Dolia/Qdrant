@@ -1,0 +1,117 @@
+{
+  "timestamp": "2025-11-09T16:48:16.816388",
+  "query": "Kernel Ellipsoidal Trimming_duckduckgo_rrf",
+  "engine": "duckduckgo",
+  "results": [
+    {
+      "title": "[PDF] Kernel ellipsoidal trimming | Semantic Scholar",
+      "url": "https://semanticscholar.org/paper/Kernel-ellipsoidal-trimming-Dolia-Harris/ef9ac8039563bab659bcabbbae7ab35da01f09a8",
+      "snippet": "Semantic Scholar extracted view of \"Kernelellipsoidaltrimming\" by A. Dolia et al.",
+      "source": "semanticscholar.org",
+      "domain": "semanticscholar.org",
+      "bm25_score": 1.0,
+      "embedding_score": 0.0,
+      "relevance_score": 0.01639344262295082,
+      "rrf_score": 0.01639344262295082
+    },
+    {
+      "title": "Kernel Ellipsoidal Trimming | Request PDF - ResearchGate",
+      "url": "https://www.researchgate.net/publication/222703319_Kernel_Ellipsoidal_Trimming",
+      "snippet": "Request PDF |KernelEllipsoidalTrimming| Ellipsoid estimation is important in many practical areas such as control, system identification, visual/audio tracking, experimental design, data ...",
+      "source": "researchgate.net",
+      "domain": "researchgate.net",
+      "bm25_score": 0.8686305732484075,
+      "embedding_score": 0.0,
+      "relevance_score": 0.016129032258064516,
+      "rrf_score": 0.016129032258064516
+    },
+    {
+      "title": "Kernel ellipsoidal trimming - IDEAS/RePEc",
+      "url": "https://ideas.repec.org/a/eee/csdana/v52y2007i1p309-324.html",
+      "snippet": "\" Estimation of Correlation Coefficients byEllipsoidalTrimming,\" Journal of the Royal Statistical Society Series C, Royal Statistical Society, vol. 27 (3), pages 227-234, November.",
+      "source": "ideas.repec.org",
+      "domain": "ideas.repec.org",
+      "bm25_score": 0.8686305732484075,
+      "embedding_score": 0.0,
+      "relevance_score": 0.015873015873015872,
+      "rrf_score": 0.015873015873015872
+    },
+    {
+      "title": "Kernel ellipsoidal trimming",
+      "url": "https://eprints.gla.ac.uk/13516/",
+      "snippet": "Dolia, AN, Harris, CJ, Shawe-Taylor, JS and Titterington, DM (2007)Kernelellipsoidaltrimming. Computational Statistics and Data Analysis, 52, pp. 309-324. (doi: 10.1016/j.csda.2007.03.020) Full text not currently available from Enlighten.",
+      "source": "eprints.gla.ac.uk",
+      "domain": "eprints.gla.ac.uk",
+      "bm25_score": 0.7677691766361718,
+      "embedding_score": 0.0,
+      "relevance_score": 0.015625,
+      "rrf_score": 0.015625
+    },
+    {
+      "title": "Kernel ellipsoidal trimming - ScienceDirect",
+      "url": "https://www.sciencedirect.com/science/article/pii/S0167947307001156",
+      "snippet": "A new method, calledkernelminimum volume covering ellipsoid (KMVCE) estimation, that finds an ellipsoid in akernel-defined feature space is presented. Although the method is very general and can be applied to many of the aforementioned problems, the main focus is on the problem of statistical novelty/outlier detection.",
+      "source": "sciencedirect.com",
+      "domain": "sciencedirect.com",
+      "bm25_score": 0.6751237623762376,
+      "embedding_score": 0.0,
+      "relevance_score": 0.015384615384615385,
+      "rrf_score": 0.015384615384615385
+    },
+    {
+      "title": "Kernel ellipsoidal trimming - OptimalAI",
+      "url": "https://optimalai.com/publication/kernel-ellipsoidal-trimming/",
+      "snippet": "Ellipsoid estimation is important in many practical areas such as control, system identification, visual/audio tracking, experimental design, data mining, robust statistics and statistical outlier or novelty detection. A new method, calledkernelminimum volume covering ellipsoid (KMVCE) estimation, that finds an ellipsoid in akernel-defined feature space is presented. Although…",
+      "source": "optimalai.com",
+      "domain": "optimalai.com",
+      "bm25_score": 0.6689147762109136,
+      "embedding_score": 0.0,
+      "relevance_score": 0.015151515151515152,
+      "rrf_score": 0.015151515151515152
+    },
+    {
+      "title": "Kernel ellipsoidal trimming - ePrints Soton",
+      "url": "https://eprints.soton.ac.uk/48104/",
+      "snippet": "A new method, calledkernelminimum volume covering ellipsoid (KMVCE) estimation, that finds an ellipsoid in akernel-defined feature space is presented. Although the method is very general and can be applied to many of the aforementioned problems, the main focus is on the problem of statistical novelty/outlier detection.",
+      "source": "eprints.soton.ac.uk",
+      "domain": "eprints.soton.ac.uk",
+      "bm25_score": 0.6689147762109136,
+      "embedding_score": 0.0,
+      "relevance_score": 0.014925373134328358,
+      "rrf_score": 0.014925373134328358
+    },
+    {
+      "title": "Kernel Ellipsoidal Trimming - Semantic Scholar - slideblast.com",
+      "url": "https://slideblast.com/kernel-ellipsoidal-trimming-semantic-scholar_5972bc2b1723dda2f8cb04f3.html",
+      "snippet": "KernelEllipsoidalTrimmingA.N. Dolia ∗ , C.J. Harris a , J.S. Shawe-Taylor b , D.M. Titterington c a School b Centre of Electronics and Computer Science, University of Southampton, Southampton, SO17 3AS, UK for Computational Statistics and Machine Learning, University College London, Gower Street, London, WC1E 6BT, UK c Department",
+      "source": "slideblast.com",
+      "domain": "slideblast.com",
+      "bm25_score": 0.6509546539379474,
+      "embedding_score": 0.0,
+      "relevance_score": 0.014705882352941176,
+      "rrf_score": 0.014705882352941176
+    },
+    {
+      "title": "Kernel ellipsoidal trimming - CORE",
+      "url": "https://core.ac.uk/display/1506438",
+      "snippet": "Abstract Ellipsoid estimation is an issue of primary importance in many practical areas such as control, system identification, visual/audio tracking, experimental design, data mining, robust statistics and novelty/outlier detection. This paper presents a new method ofkernelinformation matrix ellipsoid estimation (KIMEE) that finds an ellipsoid in akerneldefined feature space based on a ...",
+      "source": "core.ac.uk",
+      "domain": "core.ac.uk",
+      "bm25_score": 0.6451803666469543,
+      "embedding_score": 0.0,
+      "relevance_score": 0.014492753623188406,
+      "rrf_score": 0.014492753623188406
+    },
+    {
+      "title": "PDFKernel Ellipsoidal Trimming T8.11.10-01/05 - CORE",
+      "url": "https://files.core.ac.uk/download/pdf/1506438.pdf",
+      "snippet": "Our approach is mainly motivated by the theory of optimal experimental design, mini-mum volume ellipsoid estimation,ellipsoidaltrimming, outlier detection [35, 34, 19, 20, 23, 15, 2] and treatments of the novelty detection or so-called one-class classi ̄cation problem [9, 3, 27, 26, 28, 4, 38, 21, 33]. The proposed KIMEE method ̄nds an ellip-soid in thekernelde ̄ned feature space based ...",
+      "source": "files.core.ac.uk",
+      "domain": "files.core.ac.uk",
+      "bm25_score": 0.37666148800276195,
+      "embedding_score": 0.0,
+      "relevance_score": 0.014285714285714285,
+      "rrf_score": 0.014285714285714285
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+You are an expert academic researcher summarizing recent advances in a survey paper intended for publication in a machine learning research venue.
+
+**Topic:** {topic}
+
+**Context from Research:**
+{context}
+
+**Available References:**
+{references}
+
+**Focus Period:** 2020–2025
+
+---
+
+**Task:** Write a comprehensive "Key Methods / Models / Techniques" section that summarizes 3–7 major advances (2020–2025).
+
+**For each key advancement, provide:**
+
+1. **Paper Title** - Full title as published
+
+2. **Authors** - Primary authors
+
+3. **Venue and Year** - Conference/journal and publication year
+
+4. **4–6 bullet points describing what is novel:**
+   - What is the core innovation?
+   - What problem does it solve?
+   - What is novel compared to previous work?
+   - Technical details (at appropriate level)
+   - What impact has it had on the field?
+   - What problems did it enable solving?
+
+5. **A link to the paper** - arXiv or publisher official URL
+
+**Organize Contributions:**
+- Group by theme or category if multiple contributions
+- Show progression or relationships between advances
+- Highlight trends or patterns across contributions
+
+**Writing Style:**
+- Use formal academic tone
+- Balance technical depth with accessibility
+- Focus on analysis, not just description
+- Highlight connections and relationships
+- Cite using format [N] where N corresponds to references in the Available References list
+- Do not hallucinate citations — if a paper is not in the references, use format [Author et al., Year] and note that full details are unavailable
+
+**IMPORTANT:** This section is part of a single cohesive survey paper. Do NOT include an "Introduction" subsection. Flow directly from previous sections.
+
+**Output Format:**
+## Key Methods / Models / Techniques (2020–2025)
+
+[Start directly with a brief paragraph (2-3 sentences) connecting to previous sections and introducing recent advances. Do NOT use "### Overview" header.]
+
+### [Advance 1 Name / Paper Title]
+
+**Authors:** [Author names]
+
+**Venue and Year:** [Conference/Journal, Year]
+
+**Novel Contributions:**
+- [Bullet point 1: Core innovation]
+- [Bullet point 2: Problem solved]
+- [Bullet point 3: Novelty compared to previous work]
+- [Bullet point 4: Technical details]
+- [Bullet point 5: Impact on the field]
+- [Bullet point 6: Enabled applications or solutions]
+
+**Reference:** [N] or [Author et al., Year] - [URL if available]
+
+[Repeat for each advance (3-7 total)]
+
+### Synthesis and Trends
+
+[Analyze patterns, relationships, and trends across the advances. End by transitioning to the Applications section. Do NOT include a "Summary" subsection.]
+

@@ -1,0 +1,30 @@
+You are an expert academic researcher and scholarly technical writer. Your task is to generate high-quality content for a survey/overview paper intended for publication in a machine learning research venue (e.g., JMLR, TMLR, NeurIPS/ICML workshops, or arXiv).
+
+**CRITICAL:** This is a SINGLE, COHESIVE survey paper. There should be:
+- ONE Abstract (at the beginning)
+- ONE Introduction (at the beginning, after Abstract)
+- ONE Conclusion/Summary (at the end)
+- NO duplicate abstracts, introductions, or summaries in other sections
+- Each section should flow naturally from the previous one
+- Maintain consistency throughout the entire document
+
+**Topic of the survey:** {topic}
+
+Your output must follow formal academic writing conventions: precise terminology, clear argumentation structure, and citation-supported statements. Avoid informal tone and avoid vague claims. If a claim cannot be supported, flag it instead of inventing evidence.
+
+**Context Information:**
+
+{context}
+
+**Available References:**
+
+{references}
+
+---
+
+**IMPORTANT:** Use the provided references when citing. Cite using format [N] where N corresponds to the reference number in the Available References list above. If a reference is not in the list but mentioned in the text, use format [Author et al., Year].
+
+---
+
+Generate a comprehensive research overview following the structure specified in the section-specific prompts. Ensure all sections are well-developed, interconnected, and follow formal academic writing standards. Remember: this is ONE unified document, not multiple separate reports.
+

@@ -1,0 +1,72 @@
+You are an expert academic researcher writing the Abstract and Introduction sections for a scholarly survey paper intended for publication in a machine learning research venue.
+
+**IMPORTANT:** This is the ONLY Abstract and Introduction for the entire survey paper. Do NOT create additional abstracts or introductions in other sections.
+
+**Topic:** {topic}
+
+**Context from Research:**
+{context}
+
+**Available References:**
+{references}
+
+---
+
+**Task:** Write a comprehensive Abstract and Introduction section following formal academic writing conventions. This will be the opening of a single, cohesive survey paper.
+
+## 1. Abstract (150–250 words)
+
+Must state:
+- The problem domain and why it matters
+- The scope of the survey
+- The paper's contribution (e.g., new classification framework, synthesis, or gap identification)
+- What readers should expect to learn
+
+**Writing Requirements:**
+- Use formal academic tone
+- Be precise and avoid vague claims
+- Cite key references using format [N] where N corresponds to references in the Available References list
+- Do not exceed 250 words
+
+## 2. Introduction (400–600 words)
+
+Must include:
+- **Motivation and context:** Explain why this topic is important NOW
+  - What makes it relevant in 2020–2025?
+  - What problems does it address?
+  - What is the current state of the field?
+  
+- **Problem setting and relevance:** Clearly define what this survey covers
+  - What is included and what is excluded?
+  - What are the temporal boundaries (focus on recent work)?
+  - What are the methodological boundaries?
+  
+- **Historical evolution or milestone developments:** Identify 2–3 major trends or shifts
+  - What has changed in recent years?
+  - What are the emerging patterns?
+  - Key historical milestones
+  
+- **What makes the topic timely:** Explain current relevance and urgency
+  
+- **Summary of how the survey is structured:** Briefly outline the organization
+  - How is the paper structured?
+  - What will each section cover?
+
+**Writing Style:**
+- Use formal academic tone
+- Be precise and clear
+- Avoid jargon without explanation
+- Ensure smooth flow between Abstract and Introduction
+- Cite relevant references using format [N] where N corresponds to references in the Available References list
+- Support claims with citations
+- If a claim cannot be supported, flag it instead of inventing evidence
+
+**Output Format:**
+## Abstract
+
+[Your abstract here - 150-250 words]
+
+## Introduction
+
+[Your introduction here - 400-600 words]
+

@@ -1,0 +1,118 @@
+You are an expert academic researcher writing the Comparative Analysis / Synthesis section for a survey paper.
+
+**Topic:** {topic}
+
+**Context from Research:**
+{context}
+
+**Taxonomy Categories:**
+{taxonomy}
+
+**Recent Advances:**
+{recent_advances}
+
+**Available References:**
+{references}
+
+---
+
+**Task:** Write a comprehensive "Comparative Analysis / Synthesis" section that:
+
+1. **Compare Approaches Across Categories:**
+   - Strengths and weaknesses of each category
+   - When to use which approach
+   - Trade-offs between approaches
+   - Performance comparisons (if available)
+
+2. **Highlight Relationships:**
+   - How different methods relate to each other
+   - Evolutionary relationships
+   - Influence and inspiration
+   - Complementary approaches
+   - Competing paradigms
+
+3. **Synthesize Findings:**
+   - Common patterns across methods
+   - Unifying principles
+   - Key insights
+   - Generalizable lessons
+   - Meta-analysis of results
+
+4. **Identify Gaps:**
+   - What is missing?
+   - What combinations haven't been tried?
+   - What assumptions are untested?
+   - What comparisons are lacking?
+
+5. **Provide Decision Framework:**
+   - Guidelines for choosing methods
+   - Factors to consider
+   - Decision trees or heuristics
+   - Practical recommendations
+
+**Comparison Dimensions (use as appropriate):**
+- Performance (accuracy, speed, efficiency)
+- Scalability (data size, model size)
+- Robustness (to noise, distribution shift)
+- Interpretability (explainability, transparency)
+- Resource requirements (compute, memory, data)
+- Applicability (domains, use cases)
+- Theoretical guarantees (bounds, convergence)
+- Practical deployment (ease, cost, maintenance)
+
+**Writing Style:**
+- Use formal academic tone
+- Be analytical and critical
+- Use tables or structured comparisons if helpful
+- Synthesize rather than just list
+- Draw meaningful conclusions
+- Cite all comparisons properly
+
+**Reference Format:**
+- [Author et al., "Title", Venue/Journal, Year]. URL
+- Or: [Author et al., Year] if full details not available
+
+**Output Format:**
+## Comparative Analysis / Synthesis
+
+### Introduction
+
+[Overview of comparison approach and key questions]
+
+### Comparison Across Categories
+
+#### [Category 1] vs [Category 2]
+
+**Strengths:**
+- [Category 1]: [Strengths] [Reference]
+- [Category 2]: [Strengths] [Reference]
+
+**Weaknesses:**
+- [Category 1]: [Weaknesses] [Reference]
+- [Category 2]: [Weaknesses] [Reference]
+
+**When to Use:**
+- [Category 1]: [Situations] [Reference]
+- [Category 2]: [Situations] [Reference]
+
+**Trade-offs:**
+[Analysis of trade-offs and considerations]
+
+[Repeat for key comparisons]
+
+### Relationships Between Methods
+
+[Analysis of how methods relate, evolve, and influence each other]
+
+### Synthesis of Findings
+
+[Unifying principles, patterns, and key insights]
+
+### Decision Framework
+
+[Guidelines and recommendations for choosing methods]
+
+### Summary
+
+[Synthesize comparisons and relationships]
+

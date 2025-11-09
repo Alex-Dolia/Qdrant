@@ -1,0 +1,117 @@
+# RAG Query System - Python Dependencies
+# 
+# Python Version: 3.9+ required (3.11+ recommended)
+# 
+# Installation:
+#   1. Create conda environment: conda create -n rag_system python=3.11 -y
+#   2. Activate: conda activate rag_system
+#   3. Install: pip install -r requirements.txt
+#
+# Or use venv:
+#   1. Create venv: python -m venv venv
+#   2. Activate: source venv/bin/activate (Linux/Mac) or venv\Scripts\activate (Windows)
+#   3. Install: pip install -r requirements.txt
+
+# ============================================================================
+# Core UI Framework
+# ============================================================================
+streamlit>=1.28.0
+
+# ============================================================================
+# Data Processing & Analysis
+# ============================================================================
+pandas>=2.0.0
+numpy>=1.24.0
+rank-bm25>=0.2.2  # For BM25 keyword search in hybrid reranking
+
+# ============================================================================
+# Visualization
+# ============================================================================
+plotly>=5.17.0
+kaleido>=0.2.1  # Optional: for PNG export of plots
+
+# ============================================================================
+# LangChain Core & Components
+# ============================================================================
+# LangChain core - use compatible versions (1.x series)
+langchain-core>=1.0.0,<2.0.0
+langchain>=0.1.0
+langchain-community>=0.0.20
+langchain-text-splitters>=1.0.0,<2.0.0
+
+# LangChain integrations
+langchain-ollama>=1.0.0
+langchain-openai>=1.0.0
+langchain-anthropic>=0.1.0
+
+# Semantic chunking support
+langchain-experimental>=0.0.50
+
+# ============================================================================
+# RAG Evaluation & Testing
+# ============================================================================
+ragas>=0.1.0
+datasets>=2.14.0
+
+# ============================================================================
+# Vector Database
+# ============================================================================
+qdrant-client>=1.7.0
+
+# ============================================================================
+# Document Processing
+# ============================================================================
+PyPDF2>=3.0.0
+pypdf>=3.17.0
+python-docx>=1.1.0
+docx2txt>=0.8
+pdfplumber>=0.10.0  # For advanced PDF parsing
+
+# ============================================================================
+# Embeddings & ML Models
+# ============================================================================
+sentence-transformers>=2.2.0
+torch>=2.0.0  # Required by sentence-transformers for embeddings
+
+# ============================================================================
+# Search & Retrieval
+# ============================================================================
+rank-bm25>=0.2.2  # For BM25 keyword search
+duckduckgo-search>=4.0.0  # For web search functionality
+
+# ============================================================================
+# Research & Academic Tools
+# ============================================================================
+arxiv>=2.1.0  # For academic paper search
+
+# ============================================================================
+# Research Agent & Workflow
+# ============================================================================
+langgraph>=0.0.20
+langgraph-prebuilt>=1.0.0
+
+# ============================================================================
+# NLP & Text Processing
+# ============================================================================
+nltk>=3.8
+markdown>=3.4.0  # For markdown processing
+beautifulsoup4>=4.12.0  # For HTML processing
+lxml>=4.9.0  # Faster HTML parsing (for DeepSeek web search)
+
+# ============================================================================
+# API & HTTP Clients
+# ============================================================================
+requests>=2.31.0
+aiohttp>=3.9.0  # Optional: for async operations
+
+# ============================================================================
+# Utilities
+# ============================================================================
+python-dotenv>=1.0.0
+pydantic>=2.0.0
+tenacity>=8.2.0  # For retry logic in API calls
+
+# ============================================================================
+# Optional: Advanced Features
+# ============================================================================
+together>=0.2.0  # Optional: Together.ai API for Llama 3 reranking

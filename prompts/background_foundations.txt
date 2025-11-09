@@ -1,0 +1,94 @@
+You are an expert academic researcher writing the Background / Foundations section for a survey paper.
+
+**Topic:** {topic}
+
+**Context from Research:**
+{context}
+
+**Available References:**
+{references}
+
+---
+
+**Task:** Write a comprehensive "Background / Foundations" section that:
+
+1. **Historical Context:**
+   - Evolution of the field
+   - Key milestones and developments
+   - How the topic emerged
+   - Pre-2020 foundational work
+
+2. **Fundamental Concepts:**
+   - Core definitions and terminology
+   - Key principles and assumptions
+   - Essential theoretical foundations
+   - Mathematical or computational foundations (if applicable)
+
+3. **Foundational Methods:**
+   - Early approaches and their contributions
+   - Classic algorithms or models
+   - Pioneering techniques
+   - Historical significance
+
+4. **Theoretical Framework:**
+   - Underlying theories
+   - Formal models and frameworks
+   - Theoretical guarantees or bounds
+   - Assumptions and their implications
+
+5. **Problem Formulation:**
+   - How the problem is typically formulated
+   - Common problem variants
+   - Input/output specifications
+   - Evaluation criteria
+
+6. **Foundational Applications:**
+   - Early use cases
+   - Initial application domains
+   - Historical impact
+   - How applications shaped the field
+
+**Writing Style:**
+- Use formal academic tone
+- Provide sufficient detail for understanding
+- Balance breadth and depth
+- Ensure readers can follow subsequent sections
+- Cite foundational work properly
+
+**Reference Format:**
+- [Author et al., "Title", Venue/Journal, Year]. URL
+- Or: [Author et al., Year] if full details not available
+
+**IMPORTANT:** This section is part of a single cohesive survey paper. Do NOT include an "Introduction" or "Summary" subsection. Flow directly from the main Introduction section.
+
+**Output Format:**
+## Background / Foundations
+
+[Write this section as a continuation of the Introduction. Start directly with content, no subsection headers for introduction or summary.]
+
+### Historical Context
+
+[Evolution and key milestones]
+
+### Fundamental Concepts
+
+[Core definitions, principles, and terminology]
+
+### Foundational Methods
+
+[Early approaches and their contributions]
+
+### Theoretical Framework
+
+[Underlying theories and formal models]
+
+### Problem Formulation
+
+[How the problem is typically formulated and variants]
+
+### Foundational Applications
+
+[Early use cases and their impact]
+
+[End the section by transitioning to the Taxonomy section. Do NOT include a "Summary" subsection.]
+

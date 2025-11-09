@@ -1,0 +1,27 @@
+{
+  "doc-5e49fade4599f8acbbb23db445224b85": {
+    "status": "processed",
+    "chunks_count": 8,
+    "chunks_list": [
+      "chunk-664f746ded9504401f4ac3f96ff058a3",
+      "chunk-de2cdb5ba5d6f972f292fedfa779a9a6",
+      "chunk-fb5095b4f2089a23b707d76eebebfdab",
+      "chunk-e2335e325b8a93696bf90da5782b39b6",
+      "chunk-a9a6f1c1d49dd5262513eec94105a299",
+      "chunk-6e6ffddc361437bdac2c129ab2b81135",
+      "chunk-dd51ce5ea5e444cd641cb8dba451523d",
+      "chunk-e3c15ba4a71c2d0585735585e735599d"
+    ],
+    "content_summary": "CONTRACTOR TERMS 2021 \n\nTHIS AGREEMENT is made on the date on which it has been executed by both parties. \n\nIT IS AGREED: \n\n1. ACCEPTANCE OF TERMS AND CONDITIONS \n\n1.1. The Consultancy will be deemed to have accepted and agreed to these Terms and Con...",
+    "content_length": 32451,
+    "created_at": "2025-11-09T09:13:22.691430+00:00",
+    "updated_at": "2025-11-09T10:52:18+00:00",
+    "file_path": "tmpf921tqp8.md",
+    "track_id": "insert_20251109_091322_378067e0",
+    "metadata": {
+      "processing_start_time": 1762685411,
+      "processing_end_time": 1762685475
+    },
+    "multimodal_processed": true
+  }
+}

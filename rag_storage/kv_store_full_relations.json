@@ -1,0 +1,93 @@
+{
+  "doc-5e49fade4599f8acbbb23db445224b85": {
+    "relation_pairs": [
+      [
+        "Expense Reimbursement",
+        "discarded_2417dc774c16e30c865aaf47923d58fe"
+      ],
+      [
+        "Agency",
+        "Consultancy"
+      ],
+      [
+        "Invoice",
+        "discarded_2417dc774c16e30c865aaf47923d58fe"
+      ],
+      [
+        "Content Analysis",
+        "Discarded Content"
+      ],
+      [
+        "Content Analysis",
+        "Page Break or Section Separator (discarded)"
+      ],
+      [
+        "Analysis",
+        "Page Break or Section Separator (discarded)"
+      ],
+      [
+        "Agency",
+        "Consultancy Fees"
+      ],
+      [
+        "Agreement",
+        "discarded_2417dc774c16e30c865aaf47923d58fe"
+      ],
+      [
+        "Consultancy Fees",
+        "discarded_2417dc774c16e30c865aaf47923d58fe"
+      ],
+      [
+        "Payment Schedule",
+        "discarded_2417dc774c16e30c865aaf47923d58fe"
+      ],
+      [
+        "Agency",
+        "Payment Schedule"
+      ],
+      [
+        "Agency",
+        "Contractual Payment Terms"
+      ],
+      [
+        "Discarded Content",
+        "Page Break"
+      ],
+      [
+        "Agency (Client)",
+        "Consultancy"
+      ],
+      [
+        "Content Analysis",
+        "discarded_2417dc774c16e30c865aaf47923d58fe"
+      ],
+      [
+        "Agency",
+        "Invoice"
+      ],
+      [
+        "Discarded Content",
+        "Page Break or Section Separator (discarded)"
+      ],
+      [
+        "Content Analysis",
+        "Page Break"
+      ],
+      [
+        "Analysis",
+        "Content Analysis"
+      ],
+      [
+        "Consultancy",
+        "Expense Reimbursement"
+      ],
+      [
+        "Page Break",
+        "Page Break or Section Separator (discarded)"
+      ]
+    ],
+    "count": 21,
+    "update_time": 1762685538,
+    "_id": "doc-5e49fade4599f8acbbb23db445224b85"
+  }
+}

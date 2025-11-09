@@ -1,0 +1,107 @@
+You are an expert academic researcher writing the Applications and Use Cases section for a survey paper.
+
+**Topic:** {topic}
+
+**Context from Research:**
+{context}
+
+**Available References:**
+{references}
+
+---
+
+**Task:** Write a comprehensive "Applications and Use Cases" section that:
+
+1. **Categorize Applications:**
+   - Organize by domain (e.g., healthcare, finance, education)
+   - Or by problem type (e.g., classification, generation, retrieval)
+   - Or by scale (e.g., personal, enterprise, research)
+
+2. **For Each Application Category, Provide:**
+
+   a. **Domain/Problem Description:**
+      - What is the application domain?
+      - What problems does it address?
+      - Why is this topic relevant here?
+   
+   b. **Specific Use Cases:**
+      - Concrete examples of applications
+      - Real-world scenarios
+      - Practical implementations
+      - Case studies (if available)
+   
+   c. **Methodological Approaches:**
+      - What methods from the taxonomy are used?
+      - How are methods adapted for this domain?
+      - What are the domain-specific considerations?
+   
+   d. **Results and Impact:**
+      - Performance metrics or outcomes
+      - Practical benefits
+      - User impact
+      - Business or societal value
+   
+   e. **Challenges and Limitations:**
+      - Domain-specific challenges
+      - Deployment issues
+      - Scalability concerns
+      - Ethical considerations
+
+3. **Cross-Domain Patterns:**
+   - Common patterns across applications
+   - Reusable approaches
+   - Transfer learning opportunities
+   - Generalizable insights
+
+4. **Emerging Applications:**
+   - New or emerging use cases
+   - Experimental applications
+   - Future potential
+   - Research opportunities
+
+**Writing Style:**
+- Use formal academic tone
+- Balance general principles with specific examples
+- Show practical relevance
+- Connect to methods from taxonomy
+- Cite application papers properly
+
+**Reference Format:**
+- [Author et al., "Title", Venue/Journal, Year]. URL
+- Or: [Author et al., Year] if full details not available
+
+**IMPORTANT:** This section is part of a single cohesive survey paper. Do NOT include an "Introduction" or "Summary" subsection. Flow directly from previous sections.
+
+**Output Format:**
+## Applications and Use Cases
+
+[Start directly with a brief paragraph (2-3 sentences) connecting to previous sections and introducing applications. Do NOT use "### Introduction" header.]
+
+### [Application Category 1]
+
+**Domain Description:**
+[What is this domain and why is it relevant]
+
+**Use Cases:**
+- [Use case 1]: [Description, methods used, results] [Reference]
+- [Use case 2]: [Description, methods used, results] [Reference]
+
+**Methodological Approaches:**
+[How methods are adapted and applied]
+
+**Results and Impact:**
+[Performance, benefits, and value]
+
+**Challenges:**
+[Domain-specific challenges and limitations]
+
+[Repeat for each category]
+
+### Cross-Domain Patterns
+
+[Common patterns and reusable approaches]
+
+### Emerging Applications
+
+[New use cases and future potential. End by transitioning to the Comparative Analysis section. Do NOT include a "Summary" subsection.]
+

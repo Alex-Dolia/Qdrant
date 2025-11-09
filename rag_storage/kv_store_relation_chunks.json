@@ -1,0 +1,65 @@
+{
+  "hold legal title<SEP>relation>The Consultancy and the Consultancy Personnel or Substitute": {
+    "chunk_ids": [
+      "chunk-a9a6f1c1d49dd5262513eec94105a299"
+    ],
+    "count": 1,
+    "create_time": 1762685468,
+    "update_time": 1762685468,
+    "_id": "hold legal title<SEP>relation>The Consultancy and the Consultancy Personnel or Substitute"
+  },
+  "relation>The Consultancy<SEP>warrants that": {
+    "chunk_ids": [
+      "chunk-a9a6f1c1d49dd5262513eec94105a299"
+    ],
+    "count": 1,
+    "create_time": 1762685468,
+    "update_time": 1762685468,
+    "_id": "relation>The Consultancy<SEP>warrants that"
+  },
+  "does not vest<SEP>relation>Client IPR": {
+    "chunk_ids": [
+      "chunk-a9a6f1c1d49dd5262513eec94105a299"
+    ],
+    "count": 1,
+    "create_time": 1762685468,
+    "update_time": 1762685468,
+    "_id": "does not vest<SEP>relation>Client IPR"
+  },
+  "may terminate this agreement<SEP>relation>The Agency": {
+    "chunk_ids": [
+      "chunk-a9a6f1c1d49dd5262513eec94105a299"
+    ],
+    "count": 1,
+    "create_time": 1762685468,
+    "update_time": 1762685468,
+    "_id": "may terminate this agreement<SEP>relation>The Agency"
+  },
+  "Dive Intellect Ltd<SEP>Glasgow Associates": {
+    "chunk_ids": [
+      "chunk-6e6ffddc361437bdac2c129ab2b81135"
+    ],
+    "count": 1,
+    "create_time": 1762685468,
+    "update_time": 1762685468,
+    "_id": "Dive Intellect Ltd<SEP>Glasgow Associates"
+  },
+  "Contracts (Rights of Third Parties) Act 1999<SEP>Glasgow Associates": {
+    "chunk_ids": [
+      "chunk-6e6ffddc361437bdac2c129ab2b81135"
+    ],
+    "count": 1,
+    "create_time": 1762685470,
+    "update_time": 1762685470,
+    "_id": "Contracts (Rights of Third Parties) Act 1999<SEP>Glasgow Associates"
+  },
+  "Alex Doyle<SEP>Dive Intellect Ltd": {
+    "chunk_ids": [
+      "chunk-6e6ffddc361437bdac2c129ab2b81135"
+    ],
+    "count": 1,
+    "create_time": 1762685470,
+    "update_time": 1762685470,
+    "_id": "Alex Doyle<SEP>Dive Intellect Ltd"
+  }
+}

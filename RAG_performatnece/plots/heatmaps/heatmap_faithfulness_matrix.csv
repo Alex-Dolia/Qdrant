@@ -1,0 +1,19 @@
+combination,value,bin
+ollama/llama3.1:latest × semantic × semantic,0,Low
+ollama/llama3.1:latest × semantic × bm25,0,Low
+ollama/llama3.1:latest × semantic × mixed,0,Low
+ollama/llama3.1:latest × hierarchical × semantic,0,Low
+ollama/llama3.1:latest × hierarchical × bm25,0,Low
+ollama/llama3.1:latest × hierarchical × mixed,0,Low
+ollama/llama3.1:latest × recursive × semantic,0,Low
+ollama/llama3.1:latest × recursive × bm25,0,Low
+ollama/llama3.1:latest × recursive × mixed,0,Low
+ollama/llama3.1:latest × structural × semantic,0,Low
+ollama/llama3.1:latest × structural × bm25,0,Low
+ollama/llama3.1:latest × structural × mixed,0,Low
+ollama/llama3.1:latest × agentic × semantic,0,Low
+ollama/llama3.1:latest × agentic × bm25,0,Low
+ollama/llama3.1:latest × agentic × mixed,0,Low
+ollama/llama3.1:latest × cluster × semantic,0,Low
+ollama/llama3.1:latest × cluster × bm25,0,Low
+ollama/llama3.1:latest × cluster × mixed,0,Low
