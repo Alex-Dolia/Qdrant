@@ -1,0 +1,117 @@
+{
+  "timestamp": "2025-11-14T09:39:54.992955",
+  "query": "Alex Dolia_duckduckgo_rrf",
+  "engine": "duckduckgo",
+  "results": [
+    {
+      "title": "4 \"Alex Dolia\" profiles | LinkedIn",
+      "url": "https://www.linkedin.com/pub/dir/Alex/Dolia",
+      "snippet": "View the profiles of professionals named &quot;Alex Dolia&quot; on LinkedIn. There are 4 professionals named &quot;Alex Dolia&quot;, who use LinkedIn to exchange information, ideas, and opportunities.",
+      "source": "linkedin.com",
+      "domain": "linkedin.com",
+      "bm25_score": 1.0,
+      "embedding_score": 0.0,
+      "relevance_score": 0.01639344262295082,
+      "rrf_score": 0.01639344262295082
+    },
+    {
+      "title": "Alex Dolia - GitHub",
+      "url": "https://github.com/Alex-Dolia",
+      "snippet": "Experienced Data Scientist with a demonstrated history of working in Deep Learning and Machine Learning. Skilled in SQL, R, Matlab, and Python. -Alex-Dolia",
+      "source": "github.com",
+      "domain": "github.com",
+      "bm25_score": 0.9229093549558272,
+      "embedding_score": 0.0,
+      "relevance_score": 0.016129032258064516,
+      "rrf_score": 0.016129032258064516
+    },
+    {
+      "title": "‪Alex Dolia‬ - ‪Google Scholar‬",
+      "url": "https://scholar.google.com/citations?user=7OtH-7sAAAAJ&hl=en",
+      "snippet": "‪University of Southampton‬ - ‪‪Cited by 228‬‬ - ‪Machine Learning‬",
+      "source": "scholar.google.com",
+      "domain": "scholar.google.com",
+      "bm25_score": 0.8555081893650439,
+      "embedding_score": 0.0,
+      "relevance_score": 0.015873015873015872,
+      "rrf_score": 0.015873015873015872
+    },
+    {
+      "title": "Alex DOLIA | Senior Researcher | GM | Research profile",
+      "url": "https://www.researchgate.net/profile/Alex-Dolia",
+      "snippet": "AlexDOLIA, Senior Researcher | Cited by 175 | | Read 36 publications | ContactAlexDOLIA",
+      "source": "researchgate.net",
+      "domain": "researchgate.net",
+      "bm25_score": 0.7770531893213778,
+      "embedding_score": 0.0,
+      "relevance_score": 0.015625,
+      "rrf_score": 0.015625
+    },
+    {
+      "title": "Alex Dolia | - freelancer on Worksome",
+      "url": "https://use.worksome.com/profile/73898",
+      "snippet": "View the freelancer profile forAlexDoliaon Worksome - Fastest growing platform for on-site consultants and freelancers.",
+      "source": "use.worksome.com",
+      "domain": "use.worksome.com",
+      "bm25_score": 0.7365269461077845,
+      "embedding_score": 0.0,
+      "relevance_score": 0.015384615384615385,
+      "rrf_score": 0.015384615384615385
+    },
+    {
+      "title": "Alex Dolia Profiles - Facebook",
+      "url": "https://www.facebook.com/public/Alex-Dolia/",
+      "snippet": "View the profiles of people namedAlexDolia. Join Facebook to connect withAlexDoliaand others you may know. Facebook gives people the power to share...",
+      "source": "facebook.com",
+      "domain": "facebook.com",
+      "bm25_score": 0.6669581948574426,
+      "embedding_score": 0.0,
+      "relevance_score": 0.015151515151515152,
+      "rrf_score": 0.015151515151515152
+    },
+    {
+      "title": "Alex Dolia - Facebook",
+      "url": "https://www.facebook.com/people/Alex-Dolia/100093020232533/",
+      "snippet": "AlexDoliais on Facebook. Join Facebook to connect withAlexDoliaand others you may know. Facebook gives people the power to share and makes the world more open and connected.",
+      "source": "facebook.com",
+      "domain": "facebook.com",
+      "bm25_score": 0.6274477538259009,
+      "embedding_score": 0.0,
+      "relevance_score": 0.014925373134328358,
+      "rrf_score": 0.014925373134328358
+    },
+    {
+      "title": "Google DeepMind&#39;s AI wins gold at ICPC World Finals | Alex Dolia ...",
+      "url": "https://www.linkedin.com/posts/alex-dolia-866b9958_gemini-achieves-gold-level-performance-at-activity-7374518049430913024-MdFL",
+      "snippet": "🚀 Google DeepMind's 'historic' AI breakthrough in problem solving 🚀 Earlier this month at the 2025 ICPC World Finals in Azerbaijan, a special version of Gemini 2.5 Deep Think became ...",
+      "source": "linkedin.com",
+      "domain": "linkedin.com",
+      "bm25_score": 0.5261487512073961,
+      "embedding_score": 0.0,
+      "relevance_score": 0.014705882352941176,
+      "rrf_score": 0.014705882352941176
+    },
+    {
+      "title": "Alex Dolia - Locomizer | LinkedIn",
+      "url": "https://uk.linkedin.com/in/alex-dolia-866b9958",
+      "snippet": "Experienced Data Scientist with a demonstrated history of working in the Machine Learning… · Experience: Locomizer · Education: National Aerospace University -&#39;Kharkiv Aviation Institute&#39; · Location: Chelmsford · 500+ connections on LinkedIn. ViewAlexDolia'sprofile on LinkedIn, a professional community of 1 billion members.",
+      "source": "uk.linkedin.com",
+      "domain": "uk.linkedin.com",
+      "bm25_score": 0.5133970647637001,
+      "embedding_score": 0.0,
+      "relevance_score": 0.014492753623188406,
+      "rrf_score": 0.014492753623188406
+    },
+    {
+      "title": "Alex Dolya - Boston Consulting Group",
+      "url": "https://www.bcg.com/about/people/experts/alex-dolya",
+      "snippet": "AlexDolya is Boston Consulting Group's global lead for procurement. Since joining the firm in 2010,Alexhas supported more than a hundred procurement and supply chain projects globally across variety of industries and sectors, including industrial goods, consumer and retail, energy and mining, transportation and infrastructure, telecom ...",
+      "source": "bcg.com",
+      "domain": "bcg.com",
+      "bm25_score": 0.2366265359314881,
+      "embedding_score": 0.0,
+      "relevance_score": 0.014285714285714285,
+      "rrf_score": 0.014285714285714285
+    }
+  ]
+}

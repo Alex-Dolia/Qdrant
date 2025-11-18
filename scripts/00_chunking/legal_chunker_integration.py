@@ -246,12 +246,10 @@ def get_default_chunking_methods() -> List[str]:
     # If no defaults found, use all available
     return defaults if defaults else available
 
-# Available embedding models (open-source first, Ollama included)
+# Available embedding models (only the two specified Ollama models)
 EMBEDDING_MODELS = [
-    "ollama/llama3.1:latest",  # Llama 3.1 via Ollama (local)
-    "sentence-transformers/all-MiniLM-L6-v2",
-    "sentence-transformers/all-mpnet-base-v2",
-    "sentence-transformers/bge-base-en-v1.5",
+    "llama3.1:latest",      # Llama 3.1 model
+    "nomic-embed-text:latest"  # Nomic Embed Text model
     "sentence-transformers/nomic-embed-text-v1",
     "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
 ]
@@ -512,6 +510,9 @@ def ingest_legal_document(
                     chunk["file_id"] = file_id
                 chunk["file_name"] = source_filename  # For backward compatibility
                 
+                # Ensure embedding_model is always set (required for retrieval filtering)
+                chunk["embedding_model"] = embedding_model
+                
                 # Ensure chunking_method is always set
                 if not chunk.get("chunking_method"):
                     chunk["chunking_method"] = method
@@ -715,6 +716,376 @@ def get_distinct_chunking_methods(
         return []
 
 
+def get_distinct_chunking_methods_for_file(
+    qdrant_client: QdrantClient,
+    collection_name: str,
+    source_file: str
+) -> List[str]:
+    """
+    Get distinct chunking_method values from Qdrant collection metadata for a specific source file.
+    This is used for retrieval to show only methods that were actually used for the given file.
+    
+    Args:
+        qdrant_client: Qdrant client instance
+        collection_name: Collection name
+        source_file: Source file name to filter by
+        
+    Returns:
+        List of distinct chunking method names found in Qdrant for the given file
+    """
+    try:
+        from qdrant_client.models import Filter, FieldCondition, MatchValue
+        
+        # Build filter for source_file
+        filter_condition = Filter(
+            must=[
+                FieldCondition(
+                    key="source_file",
+                    match=MatchValue(value=source_file)
+                )
+            ]
+        )
+        
+        # Use scroll to get all points and extract distinct chunking_method values
+        chunking_methods = set()
+        next_page_offset = None
+        max_iterations = 100  # Safety limit
+        
+        for _ in range(max_iterations):
+            scroll_result = qdrant_client.scroll(
+                collection_name=collection_name,
+                limit=1000,
+                offset=next_page_offset,
+                scroll_filter=filter_condition,
+                with_payload=True,
+                with_vectors=False
+            )
+            
+            points, next_page_offset = scroll_result
+            
+            # Extract chunking_method from each point
+            for point in points:
+                payload = point.payload or {}
+                chunking_method = payload.get("chunking_method")
+                if chunking_method:
+                    chunking_methods.add(chunking_method)
+            
+            # Break if no more pages
+            if next_page_offset is None:
+                break
+        
+        found_methods = sorted(list(chunking_methods))
+        logger.info(f"Found chunking methods in Qdrant for file '{source_file}': {found_methods}")
+        
+        return sorted(list(chunking_methods))
+    
+    except Exception as e:
+        logger.error(f"Error getting distinct chunking methods for file: {e}", exc_info=True)
+        return []
+
+
+def get_distinct_embedding_models(
+    qdrant_client: QdrantClient,
+    collection_name: str,
+    source_file: Optional[str] = None
+) -> List[str]:
+    """
+    Get distinct embedding_model values from Qdrant collection metadata.
+    If source_file is provided, only return embedding models used for that specific file.
+    Otherwise, return all embedding models found in the collection.
+    
+    Args:
+        qdrant_client: Qdrant client instance
+        collection_name: Collection name
+        source_file: Optional source file name to filter by (None = all files)
+        
+    Returns:
+        List of distinct embedding model names found in Qdrant
+    """
+    try:
+        from qdrant_client.models import Filter, FieldCondition, MatchValue
+        
+        # Build filter if source_file is specified
+        filter_condition = None
+        if source_file:
+            filter_condition = Filter(
+                must=[
+                    FieldCondition(
+                        key="source_file",
+                        match=MatchValue(value=source_file)
+                    )
+                ]
+            )
+        
+        # Use scroll to get all points and extract distinct embedding_model values
+        # Handle pagination for large collections
+        embedding_models = set()
+        next_page_offset = None
+        max_iterations = 100  # Safety limit
+        
+        for _ in range(max_iterations):
+            scroll_params = {
+                "collection_name": collection_name,
+                "limit": 1000,  # Process in batches
+                "offset": next_page_offset,
+                "with_payload": True,
+                "with_vectors": False
+            }
+            
+            if filter_condition:
+                scroll_params["scroll_filter"] = filter_condition
+            
+            scroll_result = qdrant_client.scroll(**scroll_params)
+            
+            points, next_page_offset = scroll_result
+            
+            # Extract embedding_model from each point
+            for point in points:
+                payload = point.payload or {}
+                embedding_model = payload.get("embedding_model")
+                if embedding_model:
+                    embedding_models.add(embedding_model)
+            
+            # Break if no more pages
+            if next_page_offset is None:
+                break
+        
+        # Log found models for debugging
+        found_models = sorted(list(embedding_models))
+        if source_file:
+            logger.info(f"Found embedding models in Qdrant for file '{source_file}': {found_models}")
+        else:
+            logger.info(f"Found embedding models in Qdrant: {found_models}")
+        
+        return sorted(list(embedding_models))
+    
+    except Exception as e:
+        logger.error(f"Error getting distinct embedding models: {e}", exc_info=True)
+        return []
+
+
+def get_embedding_models_for_file_and_method(
+    qdrant_client: QdrantClient,
+    collection_name: str,
+    source_file: str,
+    chunking_method: str
+) -> List[str]:
+    """
+    Get distinct embedding models for a specific file and chunking method combination.
+    
+    Args:
+        qdrant_client: Qdrant client instance
+        collection_name: Collection name
+        source_file: Source file name
+        chunking_method: Chunking method name
+        
+    Returns:
+        List of distinct embedding model names found for this file+method combination
+    """
+    try:
+        from qdrant_client.models import Filter, FieldCondition, MatchValue
+        
+        # Build filter for source_file AND chunking_method
+        filter_condition = Filter(
+            must=[
+                FieldCondition(
+                    key="source_file",
+                    match=MatchValue(value=source_file)
+                ),
+                FieldCondition(
+                    key="chunking_method",
+                    match=MatchValue(value=chunking_method)
+                )
+            ]
+        )
+        
+        # Use scroll to get all points and extract distinct embedding_model values
+        embedding_models = set()
+        next_page_offset = None
+        max_iterations = 100  # Safety limit
+        
+        for _ in range(max_iterations):
+            scroll_result = qdrant_client.scroll(
+                collection_name=collection_name,
+                limit=1000,
+                offset=next_page_offset,
+                scroll_filter=filter_condition,
+                with_payload=True,
+                with_vectors=False
+            )
+            
+            points, next_page_offset = scroll_result
+            
+            # Extract embedding_model from each point
+            for point in points:
+                payload = point.payload or {}
+                embedding_model = payload.get("embedding_model")
+                if embedding_model:
+                    embedding_models.add(embedding_model)
+            
+            # Break if no more pages
+            if next_page_offset is None:
+                break
+        
+        found_models = sorted(list(embedding_models))
+        logger.info(f"Found embedding models for file '{source_file}' with method '{chunking_method}': {found_models}")
+        
+        return sorted(list(embedding_models))
+    
+    except Exception as e:
+        logger.error(f"Error getting embedding models for file and method: {e}", exc_info=True)
+        return []
+
+
+def compute_chunk_similarities(
+    qdrant_client: QdrantClient,
+    collection_name: str,
+    query_text: str,
+    embedding_model: str,
+    source_file: str,
+    chunking_method: str,
+    top_n: int = 10
+) -> List[Dict[str, Any]]:
+    """
+    Compute cosine similarity between query embedding and all chunks for a specific file+method+model.
+    
+    Args:
+        qdrant_client: Qdrant client instance
+        collection_name: Collection name
+        query_text: Query text to compute similarity for
+        embedding_model: Embedding model to use (must match stored embeddings)
+        source_file: Source file name to filter by
+        chunking_method: Chunking method to filter by
+        top_n: Number of top similar chunks to return
+        
+    Returns:
+        List of chunk dictionaries with similarity scores, sorted by similarity (highest first)
+        Each dict contains: chunk data + "similarity_score" field
+    """
+    if not LEGAL_CHUNKER_AVAILABLE:
+        raise ImportError("Legal chunker not available")
+    
+    try:
+        import numpy as np
+        from qdrant_client.models import Filter, FieldCondition, MatchValue
+        
+        # Generate query embedding using Ollama
+        try:
+            from langchain_ollama import OllamaEmbeddings
+            import os
+            from scripts.utils.model_utils import get_ollama_model_name
+            
+            # Get the Ollama model name (handles both with and without ollama/ prefix)
+            ollama_model = get_ollama_model_name(embedding_model)
+            base_url = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
+            
+            # Initialize Ollama embeddings
+            embeddings = OllamaEmbeddings(
+                model=ollama_model,
+                base_url=base_url
+            )
+            
+            # Get the embedding and convert to numpy array
+            query_vector = np.array(embeddings.embed_query(query_text))
+            
+            # Ensure the vector is not empty
+            if query_vector.size == 0:
+                raise ValueError("Empty embedding vector returned from Ollama")
+                
+        except ImportError:
+            raise ImportError("langchain-ollama package is required for embeddings. Install with: pip install langchain-ollama")
+        except Exception as e:
+            raise RuntimeError(f"Error generating Ollama query embedding: {str(e)}")
+        
+        # Build filter for source_file, chunking_method, and embedding_model
+        filter_condition = Filter(
+            must=[
+                FieldCondition(
+                    key="source_file",
+                    match=MatchValue(value=source_file)
+                ),
+                FieldCondition(
+                    key="chunking_method",
+                    match=MatchValue(value=chunking_method)
+                ),
+                FieldCondition(
+                    key="embedding_model",
+                    match=MatchValue(value=embedding_model)
+                )
+            ]
+        )
+        
+        # Retrieve all matching chunks with their vectors
+        chunks_with_similarities = []
+        offset = None
+        
+        while True:
+            scroll_result = qdrant_client.scroll(
+                collection_name=collection_name,
+                scroll_filter=filter_condition,
+                limit=1000,
+                offset=offset,
+                with_payload=True,
+                with_vectors=True  # Need vectors for similarity computation
+            )
+            
+            points = scroll_result[0]
+            if not points:
+                break
+            
+            for point in points:
+                payload = point.payload or {}
+                chunk_vector = point.vector
+                
+                if chunk_vector is None:
+                    logger.warning(f"Chunk {point.id} has no vector, skipping")
+                    continue
+                
+                # Compute cosine similarity
+                chunk_vector_np = np.array(chunk_vector)
+                similarity = np.dot(query_vector, chunk_vector_np) / (
+                    np.linalg.norm(query_vector) * np.linalg.norm(chunk_vector_np)
+                )
+                
+                # Extract chunk information
+                chunk_data = {
+                    "id": str(point.id),
+                    "text": payload.get("text", ""),
+                    "chunk_number": payload.get("chunk_number"),
+                    "chunk_index": payload.get("chunk_index"),
+                    "chunk_level": payload.get("chunk_level", payload.get("hierarchy_level", 1)),
+                    "parent_chunk_number": payload.get("parent_chunk_number"),
+                    "text_preview": payload.get("text_preview", ""),
+                    "chunking_method": payload.get("chunking_method", "unknown"),
+                    "embedding_model": payload.get("embedding_model", "unknown"),
+                    "source_file": payload.get("source_file") or payload.get("file_name", "unknown"),
+                    "hierarchy_level": payload.get("hierarchy_level"),
+                    "clause_number": payload.get("clause_number"),
+                    "title": payload.get("title"),
+                    "page": payload.get("page"),
+                    "parent": payload.get("parent"),
+                    "char_count": payload.get("char_count"),
+                    "similarity_score": float(similarity)  # Add similarity score
+                }
+                
+                chunks_with_similarities.append(chunk_data)
+            
+            # Get next offset
+            offset = scroll_result[1]
+            if offset is None:
+                break
+        
+        # Sort by similarity score (highest first)
+        chunks_with_similarities.sort(key=lambda x: x["similarity_score"], reverse=True)
+        
+        # Return top N
+        return chunks_with_similarities[:top_n]
+        
+    except Exception as e:
+        logger.error(f"Error computing chunk similarities: {e}", exc_info=True)
+        raise
+
+
 def _tokenize_text(text: str, use_ngrams: bool = True) -> List[str]:
     """
     Tokenize text for BM25 scoring with n-gram support.
@@ -857,75 +1228,135 @@ def _bm25_search(
     """
     Perform BM25 keyword-based search on Qdrant collection using n-grams (1-5 grams).
     
+    This is a pure keyword-based search that does not use any vector embeddings.
+    It tokenizes both the query and documents into n-grams and uses the BM25 algorithm
+    to rank documents by relevance to the query terms.
+    
     Args:
         qdrant_client: Qdrant client instance
         collection_name: Collection name
         query_text: Query text for keyword matching
-        filter_condition: Qdrant filter condition
-        top_k: Number of results
+        filter_condition: Qdrant filter condition for pre-filtering documents
+        top_k: Maximum number of results to return
         
     Returns:
-        List of retrieved chunks with BM25 scores and highlighted text
+        List of retrieved chunks with BM25 scores and highlighted text, sorted by relevance
     """
     if not BM25_AVAILABLE:
         raise ImportError("rank-bm25 required for BM25 search. Install with: pip install rank-bm25")
     
+    logger.info("🔍 Starting BM25 keyword search")
+    logger.debug(f"Query: '{query_text}'")
+    logger.debug(f"Top K: {top_k}")
+    logger.debug(f"Filter condition: {filter_condition}")
+    
     # Tokenize query with n-grams (1-5 grams)
-    query_tokens = _tokenize_text(query_text, use_ngrams=True)
-    if not query_tokens:
+    try:
+        query_tokens = _tokenize_text(query_text, use_ngrams=True)
+        if not query_tokens:
+            logger.warning("No valid query tokens found after tokenization")
+            return []
+        logger.debug(f"Query tokens: {query_tokens}")
+    except Exception as e:
+        logger.error(f"Error tokenizing query: {e}", exc_info=True)
         return []
     
     # Retrieve all matching chunks (with filter applied)
-    # We need to get chunks to build BM25 index, then score them
     all_chunks = []
     all_texts = []
     chunk_metadata = []
     
     try:
+        start_time = time.time()
+        total_docs_processed = 0
+        
         # Scroll through filtered chunks
         next_page_offset = None
         max_iterations = 100
         
+        logger.info("Retrieving documents for BM25 indexing...")
+        
         for _ in range(max_iterations):
-            scroll_result = qdrant_client.scroll(
-                collection_name=collection_name,
-                limit=1000,
-                offset=next_page_offset,
-                scroll_filter=filter_condition,
-                with_payload=True,
-                with_vectors=False
-            )
+            try:
+                scroll_result = qdrant_client.scroll(
+                    collection_name=collection_name,
+                    limit=1000,
+                    offset=next_page_offset,
+                    scroll_filter=filter_condition,
+                    with_payload=True,
+                    with_vectors=False
+                )
+            except Exception as e:
+                logger.error(f"Error scrolling documents: {e}", exc_info=True)
+                break
             
             points, next_page_offset = scroll_result
             
+            if not points:
+                logger.debug("No more documents to process")
+                break
+            
+            batch_size = len(points)
+            logger.debug(f"Processing batch of {batch_size} documents")
+            
             for point in points:
-                payload = point.payload or {}
-                chunk_text = payload.get("text", "").strip()
-                
-                if chunk_text:
+                try:
+                    payload = point.payload or {}
+                    chunk_text = payload.get("text", "").strip()
+                    
+                    if not chunk_text:
+                        continue
+                        
                     # Tokenize with n-grams for BM25
-                    all_texts.append(_tokenize_text(chunk_text, use_ngrams=True))
+                    tokenized_text = _tokenize_text(chunk_text, use_ngrams=True)
+                    if not tokenized_text:
+                        continue
+                        
+                    all_texts.append(tokenized_text)
                     all_chunks.append({
                         "id": point.id,
                         "payload": payload,
                         "text": chunk_text
                     })
                     chunk_metadata.append(payload)
+                    total_docs_processed += 1
+                    
+                except Exception as e:
+                    logger.warning(f"Error processing document {point.id}: {e}")
+                    continue
             
             if next_page_offset is None:
+                logger.debug("Reached end of document list")
                 break
         
         if not all_texts:
+            logger.warning("No valid documents found for BM25 search")
             return []
+            
+        logger.info(f"Processed {total_docs_processed} documents in {time.time() - start_time:.2f}s")
         
         # Build BM25 index
-        bm25 = BM25Okapi(all_texts)
+        logger.debug("Building BM25 index...")
+        bm25_start = time.time()
         
-        # Score documents
-        scores_raw = bm25.get_scores(query_tokens)
-        
-        # Convert numpy array to list to avoid boolean ambiguity errors
-        scores = list(scores_raw) if scores_raw is not None and hasattr(scores_raw, '__iter__') else []
+        try:
+            bm25 = BM25Okapi(all_texts)
+            
+            # Score documents
+            scores_raw = bm25.get_scores(query_tokens)
+            
+            # Convert numpy array to list to avoid boolean ambiguity errors
+            scores = list(scores_raw) if scores_raw is not None and hasattr(scores_raw, '__iter__') else []
+            
+            logger.debug(f"BM25 scoring completed in {time.time() - bm25_start:.4f}s")
+            
+            if not scores:
+                logger.warning("No scores generated by BM25")
+                return []
+                
+        except Exception as e:
+            logger.error(f"Error in BM25 scoring: {e}", exc_info=True)
+            return []
         
         # Normalize BM25 scores to [0, 1] range for consistent comparison with cosine similarity
         if len(scores) > 0:
@@ -944,22 +1375,38 @@ def _bm25_search(
         scored_chunks = list(zip(normalized_scores, scores, all_chunks, chunk_metadata))  # (normalized, original, chunk, metadata)
         scored_chunks.sort(key=lambda x: x[0], reverse=True)  # Sort by normalized score
         
-        # Format results
+        # Format results with deduplication
         formatted_results = []
         seen_content = set()
+        duplicate_count = 0
         
-        for norm_score, orig_score, chunk, metadata in scored_chunks[:top_k * 2]:  # Get more for deduplication
-            chunk_text = chunk["text"]
-            # Normalize text more aggressively: lowercase, strip, normalize whitespace
-            normalized_text = re.sub(r'\s+', ' ', chunk_text.lower().strip())
-            
-            if normalized_text in seen_content:
+        logger.debug(f"Formatting top {min(len(scored_chunks), top_k * 2)} results...")
+        
+        for norm_score, orig_score, chunk, metadata in scored_chunks[:top_k * 2]:
+            try:
+                chunk_text = chunk["text"]
+                
+                # Normalize text more aggressively: lowercase, strip, normalize whitespace
+                normalized_text = re.sub(r'\s+', ' ', chunk_text.lower().strip())
+                
+                # Skip duplicates
+                if normalized_text in seen_content:
+                    duplicate_count += 1
+                    continue
+                
+                seen_content.add(normalized_text)
+                
+                # Highlight query terms in the text
+                highlighted_text = _highlight_query_terms(chunk_text, query_text)
+                
+                # Log first few results for debugging
+                if len(formatted_results) < 3:
+                    logger.debug(f"Result {len(formatted_results) + 1}: Score={norm_score:.4f}, "
+                               f"Source={metadata.get('source_file', 'N/A')}, "
+                               f"Chunk ID={chunk['id']}")
+            except Exception as e:
+                logger.warning(f"Error formatting result: {e}")
                 continue
-            
-            seen_content.add(normalized_text)
-            
-            # Highlight query terms in the text
-            highlighted_text = _highlight_query_terms(chunk_text, query_text)
             
             formatted_results.append({
                 "text": chunk_text,  # Original text
@@ -986,11 +1433,19 @@ def _bm25_search(
             if len(formatted_results) >= top_k:
                 break
         
+        # Log summary
+        logger.info(f"BM25 search completed. Found {len(formatted_results)} results "
+                  f"({duplicate_count} duplicates removed)")
+        
+        if not formatted_results:
+            logger.warning("No results after deduplication")
+        
         return formatted_results
         
     except Exception as e:
         logger.error(f"Error in BM25 search: {e}", exc_info=True)
-        raise
+        # Return empty list instead of raising to prevent breaking the application
+        return []
 
 
 def _normalize_scores(results: List[Dict], score_key: str = "score") -> List[Dict]:
@@ -1163,6 +1618,58 @@ def _reciprocal_rank_fusion(
     return fused_results
 
 
+def generate_response_from_results(query_text: str, results: List[Dict], model: str = "llama3.1:latest") -> str:
+    """
+    Generate a response using the top search results as context.
+    
+    Args:
+        query_text: The original user query
+        results: List of search results with 'text' and 'score' fields
+        model: The Ollama model to use for generation (default: 'llama3.1:latest')
+        
+    Returns:
+        Generated response text
+    """
+    if not results:
+        return "No relevant information found to generate a response."
+    
+    try:
+        # Ensure the model name is properly formatted
+        model = model.strip()
+        logger.info(f"Generating response using model: {model}")
+        
+        # Take top 3 results for context to balance quality and speed
+        context = "\n".join([f"- {r['text']}" for r in results[:3]])
+        
+        prompt = f"""Answer the question based on the context below. If the context doesn't contain the answer, say you don't know.
+
+Context:
+{context}
+
+Question: {query_text}"""
+        
+        import ollama
+        
+        # List available models for debugging
+        try:
+            available_models = ollama.list()
+            logger.debug(f"Available models: {available_models}")
+        except Exception as e:
+            logger.warning(f"Could not list available models: {e}")
+        
+        # Generate the response
+        response = ollama.chat(
+            model=model,
+            messages=[{"role": "user", "content": prompt}],
+            options={"temperature": 0.3}  # Add options for more controlled output
+        )
+        
+        return response["message"]["content"]
+        
+    except Exception as e:
+        logger.error(f"Error generating response with model '{model}': {str(e)}", exc_info=True)
+        return f"I encountered an error while generating a response: {str(e)}"
+
 def query_legal_documents(
     qdrant_client: QdrantClient,
     collection_name: str,
@@ -1171,8 +1678,10 @@ def query_legal_documents(
     chunking_method: str,
     source_file: Optional[str] = None,
     top_k: int = 5,
-    search_mode: str = "semantic"
-) -> List[Dict]:
+    search_mode: str = "semantic",
+    return_timing: bool = False,
+    generate_text_model: Optional[str] = None
+) -> Dict[str, Any]:
     """
     Query legal documents with filtering by chunking method, embedding model, and optionally source file.
     Supports multiple search modes: semantic, BM25, and mixed (hybrid).
@@ -1184,11 +1693,17 @@ def query_legal_documents(
         embedding_model: Embedding model name (must match stored embeddings for semantic/mixed modes)
         chunking_method: Chunking method to filter by
         source_file: Optional source file name to filter by (None = all files)
-        top_k: Number of results
+        top_k: Number of results to return
         search_mode: Search mode - "semantic" (default), "bm25", or "mixed"
+        return_timing: If True, returns tuple (results, timing_dict) instead of just results
+        generate_text_model: If provided (e.g., "llama3.1:latest"), generates a response using the specified model.
+                             If None, only returns search results without generation.
         
     Returns:
-        List of retrieved chunks with metadata
+        Dictionary containing:
+        - results: List of retrieved chunks with metadata
+        - generated_response: Generated text response (if generate_response=True)
+        - timing: Timing information (if return_timing=True)
     """
     if not LEGAL_CHUNKER_AVAILABLE:
         raise ImportError("Legal chunker not available")
@@ -1196,6 +1711,28 @@ def query_legal_documents(
     # Validate search mode
     if search_mode not in ["semantic", "bm25", "mixed"]:
         raise ValueError(f"Invalid search_mode: {search_mode}. Must be 'semantic', 'bm25', or 'mixed'")
+    
+    # Initialize timing dictionary
+    import time
+    timing = {
+        "embedding_time": 0.0,
+        "vector_search_time": 0.0,
+        "bm25_search_time": 0.0,
+        "reranking_time": 0.0,
+        "generation_time": 0.0,
+        "total_retrieval_time": 0.0
+    }
+    retrieval_start_time = time.time()
+    
+    # Prepare result dictionary
+    result = {
+        "results": [],
+        "timing": timing if return_timing else None
+    }
+    
+    # Only add generated_response if text generation is requested
+    if generate_text_model:
+        result["generated_response"] = ""
     
     # Build filter dynamically (used by all search modes)
     from qdrant_client.models import Filter, FieldCondition, MatchValue
@@ -1233,18 +1770,40 @@ def query_legal_documents(
             if not BM25_AVAILABLE:
                 raise ImportError("rank-bm25 required for BM25 search. Install with: pip install rank-bm25")
             
-            return _bm25_search(
+            bm25_start = time.time()
+            results = _bm25_search(
                 qdrant_client=qdrant_client,
                 collection_name=collection_name,
                 query_text=query_text,
                 filter_condition=filter_condition,
                 top_k=top_k
             )
+            timing["bm25_search_time"] = time.time() - bm25_start
+            timing["total_retrieval_time"] = time.time() - retrieval_start_time
+            
+            result["results"] = results
+            
+            # Generate response if model is provided
+            if generate_text_model and results:
+                gen_start = time.time()
+                result["generated_response"] = generate_response_from_results(
+                    query_text, 
+                    results,
+                    model=generate_text_model
+                )
+                timing["generation_time"] = time.time() - gen_start
+            
+            timing["total_retrieval_time"] = time.time() - retrieval_start_time
+            
+            if return_timing:
+                return result["results"], timing
+            return result["results"]
         
         elif search_mode == "semantic":
             # Pure semantic search (existing logic)
             # Generate query embedding
-            if embedding_model.startswith("ollama/"):
+            embedding_start = time.time()
+            if embedding_model == "llama3.1:latest":
                 try:
                     from langchain_ollama import OllamaEmbeddings
                     import os
@@ -1263,18 +1822,45 @@ def query_legal_documents(
                 except Exception as e:
                     raise RuntimeError(f"Error generating Ollama query embedding: {e}")
             else:
-                # Use SentenceTransformer
-                from sentence_transformers import SentenceTransformer
-                model = SentenceTransformer(embedding_model)
-                query_vector = model.encode(query_text, convert_to_numpy=True, show_progress_bar=False).tolist()
+                # Use Ollama embeddings
+                try:
+                    from langchain_ollama import OllamaEmbeddings
+                    import os
+                    from scripts.utils.model_utils import get_ollama_model_name
+                    
+                    # Get the Ollama model name (handles both with and without ollama/ prefix)
+                    ollama_model = get_ollama_model_name(embedding_model)
+                    base_url = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
+                    
+                    # Initialize Ollama embeddings
+                    embeddings = OllamaEmbeddings(
+                        model=ollama_model,
+                        base_url=base_url
+                    )
+                    
+                    # Get the embedding
+                    query_vector = embeddings.embed_query(query_text)
+                    
+                    # Ensure the vector is not empty
+                    if not query_vector:
+                        raise ValueError("Empty embedding vector returned from Ollama")
+                        
+                except ImportError:
+                    raise ImportError("langchain-ollama package is required for embeddings. Install with: pip install langchain-ollama")
+                except Exception as e:
+                    raise RuntimeError(f"Error generating Ollama query embedding: {str(e)}")
+            
+            timing["embedding_time"] = time.time() - embedding_start
             
             # Semantic search
+            vector_search_start = time.time()
             results = qdrant_client.search(
                 collection_name=collection_name,
                 query_vector=query_vector,
                 query_filter=filter_condition,
                 limit=top_k * 2  # Get more for deduplication
             )
+            timing["vector_search_time"] = time.time() - vector_search_start
             
             # Normalize cosine similarity scores to [0, 1] range for consistency
             cosine_scores = [r.score for r in results]
@@ -1327,7 +1913,23 @@ def query_legal_documents(
                 if len(formatted_results) >= top_k:
                     break
             
-            return formatted_results
+            result["results"] = formatted_results
+            
+            # Generate response if model is provided
+            if generate_text_model and formatted_results:
+                gen_start = time.time()
+                result["generated_response"] = generate_response_from_results(
+                    query_text, 
+                    formatted_results,
+                    model=generate_text_model
+                )
+                timing["generation_time"] = time.time() - gen_start
+            
+            timing["total_retrieval_time"] = time.time() - retrieval_start_time
+            
+            if return_timing:
+                return result["results"], timing
+            return result["results"]
         
         elif search_mode == "mixed":
             # Hybrid search: combine semantic + BM25 using RRF
@@ -1335,36 +1937,43 @@ def query_legal_documents(
                 raise ImportError("rank-bm25 required for mixed search. Install with: pip install rank-bm25")
             
             # Perform both searches
-            # 1. Semantic search
-            if embedding_model.startswith("ollama/"):
-                try:
-                    from langchain_ollama import OllamaEmbeddings
-                    import os
+            # 1. Semantic search with Ollama embeddings
+            embedding_start = time.time()
+            try:
+                from langchain_ollama import OllamaEmbeddings
+                import os
+                from scripts.utils.model_utils import get_ollama_model_name
+                
+                base_url = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
+                
+                # Initialize Ollama embeddings with the exact model name
+                embeddings = OllamaEmbeddings(
+                    model="llama3.1:latest",
+                    base_url=base_url
+                )
+                
+                # Get the embedding and convert to numpy array
+                query_vector = embeddings.embed_query(query_text)
+                
+                # Ensure the vector is not empty
+                if not query_vector:
+                    raise ValueError("Empty embedding vector returned from Ollama")
                     
-                    ollama_model = embedding_model.replace("ollama/", "")
-                    base_url = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
-                    
-                    embeddings = OllamaEmbeddings(
-                        model=ollama_model,
-                        base_url=base_url
-                    )
-                    
-                    query_vector = embeddings.embed_query(query_text)
-                except ImportError:
-                    raise ImportError("langchain-ollama required for Ollama embeddings. Install with: pip install langchain-ollama")
-                except Exception as e:
-                    raise RuntimeError(f"Error generating Ollama query embedding: {e}")
-            else:
-                from sentence_transformers import SentenceTransformer
-                model = SentenceTransformer(embedding_model)
-                query_vector = model.encode(query_text, convert_to_numpy=True, show_progress_bar=False).tolist()
+            except ImportError:
+                raise ImportError("langchain-ollama package is required for embeddings. Install with: pip install langchain-ollama")
+            except Exception as e:
+                raise RuntimeError(f"Error generating Ollama query embedding: {str(e)}")
+                
+            timing["embedding_time"] = time.time() - embedding_start
             
+            vector_search_start = time.time()
             semantic_results_raw = qdrant_client.search(
                 collection_name=collection_name,
                 query_vector=query_vector,
                 query_filter=filter_condition,
                 limit=top_k * 2  # Get more for fusion
             )
+            timing["vector_search_time"] = time.time() - vector_search_start
             
             # Format semantic results with highlighting for mixed mode
             semantic_results = []
@@ -1414,6 +2023,7 @@ def query_legal_documents(
                 })
             
             # BM25 search
+            bm25_start = time.time()
             bm25_results = _bm25_search(
                 qdrant_client=qdrant_client,
                 collection_name=collection_name,
@@ -1421,15 +2031,22 @@ def query_legal_documents(
                 filter_condition=filter_condition,
                 top_k=top_k * 2  # Get more for fusion
             )
+            timing["bm25_search_time"] = time.time() - bm25_start
             
             # Fuse results using RRF
+            reranking_start = time.time()
             fused_results = _reciprocal_rank_fusion(
                 semantic_results=semantic_results,
                 bm25_results=bm25_results,
                 k=60  # Standard RRF constant
             )
+            timing["reranking_time"] = time.time() - reranking_start
+            
+            timing["total_retrieval_time"] = time.time() - retrieval_start_time
             
             # Return top_k results
+            if return_timing:
+                return fused_results[:top_k], timing
             return fused_results[:top_k]
         
     except Exception as e:
@@ -1614,7 +2231,9 @@ def query_legal_documents_with_reranking(
     source_file: Optional[str] = None,
     top_k: int = 5,
     use_reranking: bool = True,
-    retrieval_methods: Optional[List[str]] = None
+    retrieval_methods: Optional[List[str]] = None,
+    progress_callback: Optional[callable] = None,
+    total_chunks: int = 0
 ) -> List[Dict]:
     """
     Query legal documents using advanced reranking system.
@@ -1659,12 +2278,15 @@ def query_legal_documents_with_reranking(
         )
     
     # Build filter condition
-    filter_conditions = [
-        FieldCondition(
-            key="chunking_method",
-            match=MatchValue(value=chunking_method)
+    filter_conditions = []
+    
+    if chunking_method and chunking_method != 'All Methods':
+        filter_conditions.append(
+            FieldCondition(
+                key="chunking_method",
+                match=MatchValue(value=chunking_method)
+            )
         )
-    ]
     
     if source_file and source_file != "All Files":
         filter_conditions.append(
@@ -1676,14 +2298,39 @@ def query_legal_documents_with_reranking(
     
     filter_condition = Filter(must=filter_conditions) if filter_conditions else None
     
+    # Update progress if callback is provided
+    if progress_callback and total_chunks > 0:
+        progress_callback(20, f"Preparing search with {total_chunks} chunks...")
+    
+    # If reranking is disabled, fall back to standard query
+    if not use_reranking or not os.getenv("TOGETHER_API_KEY"):
+        logger.info("Reranking disabled or no Together API key found, falling back to standard query")
+        return query_legal_documents(
+            qdrant_client=qdrant_client,
+            collection_name=collection_name,
+            query_text=query_text,
+            embedding_model=embedding_model,
+            chunking_method=chunking_method,
+            source_file=source_file,
+            top_k=top_k,
+            search_mode="mixed"
+        )
+    
     # Initialize reranker
     together_api_key = os.getenv("TOGETHER_API_KEY")
+    if not together_api_key and use_reranking:
+        raise ValueError("Together API key is required for reranking")
+        
+    # Update progress if callback is provided
+    if progress_callback and total_chunks > 0:
+        progress_callback(30, "Initializing reranker...")
+        
     reranker = LegalRAGReranker(
         qdrant_client=qdrant_client,
         collection_name=collection_name,
         embedding_model=embedding_model,
-        together_api_key=together_api_key,
-        enable_reranking=use_reranking and together_api_key is not None,
+        together_api_key=together_api_key or "",
+        enable_reranking=use_reranking,
         enable_caching=True
     )
     
@@ -1691,14 +2338,64 @@ def query_legal_documents_with_reranking(
     if retrieval_methods is None:
         retrieval_methods = ["semantic", "bm25", "ngram"]
     
-    # Retrieve and rerank
-    ranked_chunks = reranker.retrieve_and_rerank(
-        query=query_text,
-        top_k=top_k,
-        methods=retrieval_methods,
-        filter_condition=filter_condition,
-        use_reranking=use_reranking
-    )
+    try:
+        # Update progress if callback is provided
+        if progress_callback and total_chunks > 0:
+            progress_callback(40, "Executing search query...")
+            
+        # Try to use the LegalRAGSystem if available
+        if hasattr(reranker, 'query'):
+            # Add progress callback to reranker if available
+            if hasattr(reranker, 'set_progress_callback'):
+                # Create a wrapper for the progress callback to adjust the progress range
+                def wrapped_progress(progress, status):
+                    # Scale progress to be between 40% and 90% of total progress
+                    scaled_progress = 40 + int(progress * 0.5)  # 40% to 90%
+                    progress_callback(scaled_progress, status)
+                
+                reranker.set_progress_callback(wrapped_progress)
+            
+            ranked_chunks = reranker.query(
+                query_text=query_text,
+                top_k=top_k,
+                methods=retrieval_methods,
+                filter_condition=filter_condition,
+                use_reranking=use_reranking
+            )
+            
+            # Update progress to 100% when search is complete
+            if progress_callback and total_chunks > 0:
+                progress_callback(100, "Search complete!")
+                
+        else:
+            # Fallback to standard query if LegalRAGSystem is not available
+            logger.warning("LegalRAGSystem.query not available, falling back to standard query")
+            if progress_callback and total_chunks > 0:
+                progress_callback(50, "Falling back to standard search...")
+                
+            return query_legal_documents(
+                qdrant_client=qdrant_client,
+                collection_name=collection_name,
+                query_text=query_text,
+                embedding_model=embedding_model,
+                chunking_method=chunking_method,
+                source_file=source_file,
+                top_k=top_k,
+                search_mode="mixed"
+            )
+    except Exception as e:
+        logger.error(f"Error during reranking: {str(e)}")
+        logger.warning("Falling back to standard query after reranking error")
+        return query_legal_documents(
+            qdrant_client=qdrant_client,
+            collection_name=collection_name,
+            query_text=query_text,
+            embedding_model=embedding_model,
+            chunking_method=chunking_method,
+            source_file=source_file,
+            top_k=top_k,
+            search_mode="mixed"
+        )
     
     # Convert RankedChunk objects to dict format compatible with existing code
     results = []
@@ -1773,8 +2470,19 @@ def get_file_statistics(
             "chunk_count": 0,
             "chunking_methods": set(),
             "chunking_method_counts": defaultdict(int),  # Track counts per chunking method
+            "chunking_method_stats": defaultdict(lambda: {
+                "chunk_count": 0,
+                "total_size": 0,
+                "min_size": float('inf'),
+                "max_size": 0,
+                "sizes": []
+            }),
             "upload_timestamps": set(),
-            "embedding_models": set()
+            "embedding_models": set(),
+            "chunk_sizes": [],  # Track sizes of all chunks
+            "min_chunk_size": float('inf'),
+            "max_chunk_size": 0,
+            "total_chunk_size": 0
         })
         
         # Scroll through all chunks
@@ -1799,9 +2507,30 @@ def get_file_statistics(
                 if not source_file:
                     continue
                 
+                # Get chunk text and calculate its size
+                chunk_text = payload.get("text", "")
+                chunk_size = len(chunk_text.split())  # Using word count as size metric
+                
                 # Update statistics for this file
                 file_stats = all_files_stats[source_file]
                 file_stats["chunk_count"] += 1
+                
+                # Get chunking method
+                chunking_method = payload.get("chunking_method", "unknown")
+                
+                # Update global chunk size statistics
+                file_stats["chunk_sizes"].append(chunk_size)
+                file_stats["min_chunk_size"] = min(file_stats["min_chunk_size"], chunk_size)
+                file_stats["max_chunk_size"] = max(file_stats["max_chunk_size"], chunk_size)
+                file_stats["total_chunk_size"] += chunk_size
+                
+                # Update per-method statistics
+                method_stats = file_stats["chunking_method_stats"][chunking_method]
+                method_stats["chunk_count"] += 1
+                method_stats["total_size"] += chunk_size
+                method_stats["min_size"] = min(method_stats["min_size"], chunk_size)
+                method_stats["max_size"] = max(method_stats["max_size"], chunk_size)
+                method_stats["sizes"].append(chunk_size)
                 
                 # Track chunking methods and counts per method
                 chunking_method = payload.get("chunking_method")
@@ -1852,19 +2581,48 @@ def get_file_statistics(
             chunking_methods_str = ", ".join(chunking_methods_list) if chunking_methods_list else "Unknown"
             
             # Convert chunking_method_counts defaultdict to regular dict for JSON serialization
-            chunking_method_counts_dict = dict(stats["chunking_method_counts"])
             
-            files_list.append({
+            # Calculate chunk size metrics
+            avg_chunk_size = 0
+            if stats["chunk_count"] > 0:
+                avg_chunk_size = stats["total_chunk_size"] / stats["chunk_count"]
+            
+            # Handle case where no chunks were found
+            min_chunk_size = stats["min_chunk_size"] if stats["chunk_count"] > 0 else 0
+            max_chunk_size = stats["max_chunk_size"] if stats["chunk_count"] > 0 else 0
+            
+            # Calculate per-method statistics
+            method_stats = {}
+            for method, mstats in stats["chunking_method_stats"].items():
+                method_avg = mstats["total_size"] / mstats["chunk_count"] if mstats["chunk_count"] > 0 else 0
+                method_min = mstats["min_size"] if mstats["chunk_count"] > 0 else 0
+                method_max = mstats["max_size"] if mstats["chunk_count"] > 0 else 0
+                
+                method_stats[method] = {
+                    "chunk_count": mstats["chunk_count"],
+                    "total_size": mstats["total_size"],
+                    "avg_size": round(method_avg, 2),
+                    "min_size": method_min,
+                    "max_size": method_max
+                }
+            
+            # Add file info to results
+            file_info = {
                 "source_file": source_file,
                 "chunk_count": stats["chunk_count"],
-                "chunking_methods": chunking_methods_list,  # Keep as list for programmatic access
-                "chunking_methods_str": chunking_methods_str,  # Add string version for display
-                "chunking_method_counts": chunking_method_counts_dict,  # Dict: {method: count}
+                "chunking_methods": sorted(list(stats["chunking_methods"])),
+                "chunking_method_counts": dict(stats["chunking_method_counts"]),
+                "chunking_method_stats": method_stats,
                 "upload_timestamp": upload_timestamp,
                 "upload_date": upload_date,
-                "embedding_model": embedding_model
-            })
+                "embedding_models": sorted(list(stats["embedding_models"])),
+                "avg_chunk_size": round(avg_chunk_size, 2),
+                "min_chunk_size": min_chunk_size,
+                "max_chunk_size": max_chunk_size,
+                "total_chunk_size": stats["total_chunk_size"]
+            }
             
+            files_list.append(file_info)
             total_chunks += stats["chunk_count"]
         
         return {

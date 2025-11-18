@@ -5,23 +5,35 @@ This module adds hybrid search capabilities to web_search.py
 
 import numpy as np
 import re
-from typing import List, Dict
+import logging
+from typing import List, Dict, Optional, Any, Callable
+from scripts.utils.model_utils import is_ollama_model, get_ollama_model_name
+
+# Import web_search components at the top level to avoid circular imports
+try:
+    from scripts.07_research_workflow.web_search import WebSearch, BM25_AVAILABLE, BM25Okapi
+except ImportError:
+    WebSearch = None
+    BM25_AVAILABLE = False
+    BM25Okapi = None
+
+logger = logging.getLogger(__name__)
 
 def add_hybrid_search_to_web_search():
     """
     This function adds hybrid search methods to the WebSearch class.
     Import and call this after importing WebSearch.
     """
-    from scripts.07_research_workflow.web_search import WebSearch, BM25_AVAILABLE, BM25Okapi
-    import logging
-    logger = logging.getLogger(__name__)
+    if WebSearch is None:
+        logger.warning("WebSearch class not found. Make sure to import it first.")
+        return
     
     def _initialize_embeddings(self):
         """Initialize embeddings model for reranking."""
         try:
-            if self.embedding_model.startswith("ollama/"):
+            if is_ollama_model(self.embedding_model):
                 from langchain_ollama import OllamaEmbeddings
-                model_name = self.embedding_model.replace("ollama/", "")
+                model_name = get_ollama_model_name(self.embedding_model)
                 self.embeddings = OllamaEmbeddings(model=model_name)
                 logger.info(f"Initialized Ollama embeddings: {model_name}")
             elif self.embedding_model.startswith("text-embedding-"):

@@ -365,8 +365,8 @@ tinyhtml5==2.0.0
 tokenizers==0.22.1
 toml==0.10.2
 tomlkit==0.13.3
-torch==2.9.0
-torchvision==0.24.0
+torch==2.9.0+cu128
+torchvision==0.24.0+cu128
 tornado @ file:///C:/b/abs_7dzpc171lf/croot/tornado_1748956950306/work
 tqdm==4.67.1
 traitlets @ file:///C:/b/abs_bfsnoxl4pq/croot/traitlets_1718227069245/work

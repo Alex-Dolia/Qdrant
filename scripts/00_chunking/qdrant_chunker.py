@@ -578,53 +578,77 @@ class LegalDocumentChunker:
     All methods return chunks with chunking_method and embedding_model metadata.
     """
     
-    def __init__(self, embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2"):
+    def __init__(self, embedding_model: str = "llama3.1:latest"):
         """
         Initialize chunker.
         
         Args:
-            embedding_model: Embedding model name (sentence-transformers/* or ollama/llama3.1:latest)
+            embedding_model: Embedding model name (llama3.1:latest or nomic-embed-text:latest)
         """
         self.embedding_model = embedding_model
+        self.model = None
+        self.ollama_embeddings = None
         
-        # Initialize embedding model based on type
-        if embedding_model.startswith("ollama/"):
-            # Ollama model - will be initialized on-demand
-            self.model = None
-            try:
-                from langchain_ollama import OllamaEmbeddings
-                import os
-                ollama_model = embedding_model.replace("ollama/", "")
-                base_url = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
-                self.ollama_embeddings = OllamaEmbeddings(
-                    model=ollama_model,
-                    base_url=base_url
-                )
-            except ImportError:
-                self.ollama_embeddings = None
-        else:
-            # SentenceTransformer model
-            self.model = SentenceTransformer(embedding_model) if SentenceTransformer else None
-            self.ollama_embeddings = None
+        # Initialize embedding wrapper
+        try:
+            from scripts.utils import EmbeddingWrapper
+            self.embedding_wrapper = EmbeddingWrapper(model_name=embedding_model)
+            
+            # Set appropriate attributes based on model type
+            if 'llama' in embedding_model or 'nomic' in embedding_model:
+                self.ollama_embeddings = True
+            else:
+                from sentence_transformers import SentenceTransformer
+                self.model = SentenceTransformer(embedding_model)
+                
+        except ImportError as e:
+            logger.error(f"Failed to initialize EmbeddingWrapper: {str(e)}")
+            raise RuntimeError(
+                "Failed to initialize embedding model. Make sure all dependencies are installed. "
+                f"Error: {str(e)}"
+            )
     
     def _encode_texts(self, texts: List[str]) -> List[List[float]]:
         """
-        Helper method to encode texts using either SentenceTransformer or Ollama.
+        Helper method to encode texts using the configured embedding model.
         
         Args:
-            texts: List of text strings
+            texts: List of text strings to encode
             
         Returns:
             List of embedding vectors
+            
+        Raises:
+            RuntimeError: If the embedding wrapper is not properly initialized
         """
-        if self.embedding_model.startswith("ollama/"):
-            if self.ollama_embeddings is None:
-                raise RuntimeError("Ollama embeddings not initialized. Install langchain-ollama.")
-            return self.ollama_embeddings.embed_documents(texts)
-        else:
-            if self.model is None:
-                raise RuntimeError("SentenceTransformer model not initialized.")
-            return self.model.encode(texts, convert_to_numpy=True, show_progress_bar=False).tolist()
+        if not texts:
+            return []
+            
+        # For Ollama models (llama3.1:latest or nomic-embed-text:latest)
+        if self.ollama_embeddings:
+            try:
+                # Use the embedding wrapper for Ollama models
+                if not hasattr(self, 'embedding_wrapper'):
+                    # Initialize the embedding wrapper if not already done
+                    from scripts.utils.embedding_utils import EmbeddingWrapper
+                    self.embedding_wrapper = EmbeddingWrapper(model_name=self.embedding_model)
+                
+                # Get embeddings using the wrapper
+                return self.embedding_wrapper.embed_documents(texts)
+                
+            except Exception as e:
+                logger.error(f"Error generating embeddings with Ollama model {self.embedding_model}: {str(e)}")
+                raise RuntimeError(f"Failed to generate embeddings with {self.embedding_model}: {str(e)}")
+        
+        # Fall back to sentence-transformers if available
+        if self.model is not None:
+            try:
+                return self.model.encode(texts, convert_to_numpy=True).tolist()
+            except Exception as e:
+                logger.error(f"Error generating embeddings with sentence-transformers: {str(e)}")
+                raise RuntimeError(f"Failed to generate embeddings: {str(e)}")
+        
+        raise RuntimeError("No valid embedding model available. Please check your configuration.")
     
     def preprocess(self, txt: str) -> str:
         """Preprocess text."""
@@ -685,67 +709,84 @@ class LegalDocumentChunker:
         Returns:
             List of chunks with chunking_method="semantic"
         """
-        if SemanticChunker is None:
-            raise RuntimeError("install langchain-experimental")
+        if not text.strip():
+            return []
         
-        if self.model is None and self.ollama_embeddings is None:
-            raise RuntimeError("install sentence-transformers or langchain-ollama")
-        
-        # SemanticChunker expects an embeddings object with embed_documents method
-        # Use OllamaEmbeddings directly if available, otherwise create a wrapper
-        if self.ollama_embeddings is not None:
-            # OllamaEmbeddings already has embed_documents method
-            embeddings_obj = self.ollama_embeddings
-        else:
-            # For SentenceTransformer, create a wrapper class
-            class SentenceTransformerEmbeddings:
-                def __init__(self, model):
-                    self.model = model
+        try:
+            # Create a wrapper class for the embeddings
+            class EmbeddingsWrapper:
+                def __init__(self, model_wrapper):
+                    self.model_wrapper = model_wrapper
                 
                 def embed_documents(self, texts: List[str]) -> List[List[float]]:
-                    """Embed documents using SentenceTransformer."""
-                    if self.model is None:
-                        raise RuntimeError("SentenceTransformer model not initialized")
-                    return self.model.encode(texts, convert_to_numpy=True, show_progress_bar=False).tolist()
+                    """Embed documents using the configured model wrapper."""
+                    if not texts:
+                        return []
+                    return self.model_wrapper.embed_documents(texts)
             
-            embeddings_obj = SentenceTransformerEmbeddings(self.model)
-        
-        splitter = SemanticChunker(
-            embeddings=embeddings_obj,
-            breakpoint_threshold_type="percentile",
-            breakpoint_threshold_amount=95.0
-        )
-        parts = splitter.split_text(text)
-        
-        chunks = []
-        current_offset = 0
-        
-        for i, p in enumerate(parts, 1):
-            start_offset = text.find(p, current_offset)
-            end_offset = start_offset + len(p)
-            current_offset = start_offset
+            # Initialize the embeddings wrapper with our embedding wrapper
+            embeddings_obj = EmbeddingsWrapper(self.embedding_wrapper)
             
-            page = None
-            if page_numbers:
-                if start_offset < len(text):
-                    ratio = start_offset / len(text)
-                    page_index = int(ratio * len(page_numbers))
-                    page = page_numbers[min(page_index, len(page_numbers) - 1)]
+            # Use RecursiveCharacterTextSplitter as fallback if SemanticChunker fails
+            try:
+                from langchain_experimental.text_splitter import SemanticChunker
+                
+                splitter = SemanticChunker(
+                    embeddings=embeddings_obj,
+                    breakpoint_threshold_type="percentile",
+                    breakpoint_threshold_amount=95.0
+                )
+                parts = splitter.split_text(text)
+            except Exception as e:
+                logger.warning(f"SemanticChunker failed, falling back to recursive splitting: {str(e)}")
+                from langchain.text_splitter import RecursiveCharacterTextSplitter
+                splitter = RecursiveCharacterTextSplitter(
+                    chunk_size=1000,
+                    chunk_overlap=200,
+                    length_function=len,
+                    is_separator_regex=False
+                )
+                parts = splitter.split_text(text)
             
-            chunks.append(make_chunk(
-                chunking_method="semantic",
-                id=f"s_{uuid.uuid4().hex[:8]}_{i}",
-                level=0,
-                clause_number=None,
-                title=None,
-                page=page,
-                text=p,
-                parent=None,
-                embedding_model=self.embedding_model,
-                ner_entities=ner_entities
-            ))
-        
-        return chunks
+            chunks = []
+            current_offset = 0
+            
+            for i, p in enumerate(parts, 1):
+                if not p.strip():
+                    continue
+                    
+                start_offset = text.find(p, current_offset)
+                if start_offset == -1:
+                    start_offset = current_offset
+                end_offset = start_offset + len(p)
+                current_offset = end_offset
+                
+                page = None
+                if page_numbers and len(page_numbers) > 0:
+                    if start_offset < len(text):
+                        ratio = min(start_offset / max(len(text), 1), 1.0)  # Ensure ratio is between 0 and 1
+                        page_index = int(ratio * len(page_numbers))
+                        page = page_numbers[min(page_index, len(page_numbers) - 1)]
+                
+                chunks.append(make_chunk(
+                    chunking_method="semantic",
+                    id=f"s_{uuid.uuid4().hex[:8]}_{i}",
+                    level=0,
+                    clause_number=None,
+                    title=None,
+                    page=page,
+                    text=p,
+                    parent=None,
+                    embedding_model=self.embedding_model,
+                    ner_entities=ner_entities
+                ))
+            
+            return chunks
+            
+        except Exception as e:
+            logger.error(f"Error in semantic chunking: {str(e)}")
+            # Fall back to recursive chunking if semantic chunking fails
+            return self.recursive(text, page_numbers, ner_entities)
     
     def structural(self, text: str, page_numbers: Optional[List[int]] = None, ner_entities: Optional[Dict[str, Optional[str]]] = None) -> List[Dict[str, Any]]:
         """
@@ -1295,57 +1336,64 @@ class LegalDocumentChunker:
             List of chunks with chunking_method="cluster"
         """
         if KMeans is None or np is None:
-            raise RuntimeError("install scikit-learn")
+            raise RuntimeError("scikit-learn is required for clustering but not installed")
         
-        if self.model is None and self.ollama_embeddings is None:
-            raise RuntimeError("install sentence-transformers or langchain-ollama")
-        
+        # Skip clustering if we don't have enough text
         sentences = split_sentences(text)
         if len(sentences) < n_clusters:
-            return self.recursive(text, page_numbers)
+            return self.recursive(text, page_numbers, ner_entities)
         
-        embeddings = self._encode_texts(sentences)
-        kmeans = KMeans(n_clusters=min(n_clusters, len(sentences)), random_state=42)
-        clusters = kmeans.fit_predict(embeddings)
-        
-        cluster_groups = defaultdict(list)
-        for i, cluster_id in enumerate(clusters):
-            cluster_groups[cluster_id].append(i)
-        
-        chunks = []
-        current_offset = 0
-        
-        for cluster_id, sentence_indices in sorted(cluster_groups.items()):
-            cluster_sentences = [sentences[i] for i in sorted(sentence_indices)]
-            chunk_text = ' '.join(cluster_sentences)
+        try:
+            # Get embeddings using the embedding wrapper
+            embeddings = self._encode_texts(sentences)
             
-            start_off = text.find(chunk_text, current_offset)
-            if start_off == -1:
-                start_off = current_offset
-            end_off = start_off + len(chunk_text)
-            current_offset = end_off
+            # Perform K-means clustering
+            kmeans = KMeans(n_clusters=min(n_clusters, len(sentences)), random_state=42)
+            clusters = kmeans.fit_predict(embeddings)
             
-            page = None
-            if page_numbers:
-                if start_off < len(text):
-                    ratio = start_off / len(text)
-                    page_index = int(ratio * len(page_numbers))
-                    page = page_numbers[min(page_index, len(page_numbers) - 1)]
+            cluster_groups = defaultdict(list)
+            for i, cluster_id in enumerate(clusters):
+                cluster_groups[cluster_id].append(i)
             
-            chunks.append(make_chunk(
-                chunking_method="cluster",
-                id=f"c_{uuid.uuid4().hex[:8]}_{cluster_id}",
-                level=0,
-                clause_number=None,
-                title=f"Cluster {cluster_id}",
-                page=page,
-                text=chunk_text,
-                parent=None,
-                embedding_model=self.embedding_model,
-                ner_entities=ner_entities
-            ))
-        
-        return chunks
+            chunks = []
+            current_offset = 0
+            
+            for cluster_id, sentence_indices in sorted(cluster_groups.items()):
+                cluster_sentences = [sentences[i] for i in sorted(sentence_indices)]
+                chunk_text = ' '.join(cluster_sentences)
+                
+                start_off = text.find(chunk_text, current_offset)
+                if start_off == -1:
+                    start_off = current_offset
+                end_off = start_off + len(chunk_text)
+                current_offset = end_off
+                
+                page = None
+                if page_numbers:
+                    if start_off < len(text):
+                        ratio = start_off / len(text)
+                        page_index = int(ratio * len(page_numbers))
+                        page = page_numbers[min(page_index, len(page_numbers) - 1)]
+                
+                chunks.append(make_chunk(
+                    chunking_method="cluster",
+                    id=f"c_{uuid.uuid4().hex[:8]}_{cluster_id}",
+                    level=0,
+                    clause_number=None,
+                    title=f"Cluster {cluster_id}",
+                    page=page,
+                    text=chunk_text,
+                    parent=None,
+                    embedding_model=self.embedding_model,
+                    ner_entities=ner_entities
+                ))
+            
+            return chunks
+            
+        except Exception as e:
+            logger.error(f"Error in cluster chunking: {str(e)}")
+            # Fall back to recursive chunking if clustering fails
+            return self.recursive(text, page_numbers, ner_entities)
     
     def hierarchical(self, text: str, page_numbers: Optional[List[int]] = None, ner_entities: Optional[Dict[str, Optional[str]]] = None) -> List[Dict[str, Any]]:
         """
@@ -1399,44 +1447,47 @@ class LegalDocumentChunker:
 
 def embed_texts(texts: List[str], model_name: str) -> List[List[float]]:
     """
-    Embed texts using SentenceTransformer or Ollama.
+    Embed texts using the appropriate model (SentenceTransformer or Ollama).
+    
+    This function uses the EmbeddingWrapper to handle different model types.
     
     Args:
-        texts: List of text strings
-        model_name: Embedding model name (sentence-transformers/* or ollama/llama3.1:latest)
+        texts: List of text strings to embed
+        model_name: Name of the model to use (e.g., 'llama3.1:latest' or 'nomic-embed-text:latest')
         
     Returns:
         List of embedding vectors
     """
-    # Check if Ollama model
-    if model_name.startswith("ollama/"):
-        try:
-            from langchain_ollama import OllamaEmbeddings
-            import os
-            
-            # Extract model name (e.g., "llama3.1:latest" from "ollama/llama3.1:latest")
-            ollama_model = model_name.replace("ollama/", "")
-            base_url = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
-            
-            embeddings = OllamaEmbeddings(
-                model=ollama_model,
-                base_url=base_url
-            )
-            
-            # Generate embeddings
-            vectors = embeddings.embed_documents(texts)
-            return vectors
-        except ImportError:
-            raise RuntimeError("langchain-ollama required for Ollama embeddings. Install with: pip install langchain-ollama")
-        except Exception as e:
-            raise RuntimeError(f"Error generating Ollama embeddings: {e}")
-    else:
-        # Use SentenceTransformer
-        if SentenceTransformer is None:
-            raise RuntimeError("sentence-transformers required")
+    if not texts:
+        return []
         
-        model = SentenceTransformer(model_name)
-        return model.encode(texts, convert_to_numpy=True, show_progress_bar=False).tolist()
+    try:
+        from scripts.utils.embedding_utils import EmbeddingWrapper
+        
+        # Initialize the embedding wrapper with the specified model
+        wrapper = EmbeddingWrapper(model_name=model_name)
+        
+        # Get embeddings for all texts
+        embeddings = wrapper.embed_documents(texts)
+        
+        # Log the first few characters of the first embedding for debugging
+        if embeddings and len(embeddings) > 0:
+            sample_embedding = embeddings[0]
+            sample_str = str(sample_embedding[:5]) + '...' if isinstance(sample_embedding, (list, np.ndarray)) else str(sample_embedding)
+            logger.debug(f"Generated embeddings for {len(texts)} texts with model {model_name}. Sample: {sample_str}")
+        
+        return embeddings
+        
+    except ImportError as ie:
+        logger.error(f"Required package not found: {str(ie)}")
+        raise RuntimeError(
+            f"Failed to import required package: {str(ie)}. "
+            "Make sure all dependencies are installed."
+        )
+    except Exception as e:
+        logger.error(f"Error in embed_texts with model {model_name}: {str(e)}", exc_info=True)
+        logger.error(f"Error in embed_texts: {str(e)}", exc_info=True)
+        raise
 
 
 def create_collection(client: QdrantClient, name: str, dim: int):
@@ -1499,12 +1550,13 @@ def upsert(client: QdrantClient, name: str, chunks: List[Dict[str, Any]], vector
         points = []
         for i, (chunk, vector) in enumerate(zip(batch_chunks, batch_vectors), start=start_idx):
             # Ensure required metadata fields
+            # REQUIRED FIELDS: file_name, chunking_method, embedding_model, chunk_number, chunk_id
             payload = {
                 "text": chunk["text"],
                 "hierarchy_level": chunk["hierarchy_level"],
                 "char_count": chunk["char_count"],
-                "chunking_method": chunk.get("chunking_method", "unknown"),  # REQUIRED
-                "embedding_model": chunk.get("embedding_model", "unknown")   # REQUIRED
+                "chunking_method": chunk.get("chunking_method", "unknown"),  # REQUIRED: Chunking method used
+                "embedding_model": chunk.get("embedding_model", "unknown")   # REQUIRED: Embedding model used
             }
             
             # Add chunk_number (index within the file for this chunking method)
@@ -1558,6 +1610,12 @@ def upsert(client: QdrantClient, name: str, chunks: List[Dict[str, Any]], vector
             source_file = chunk.get("source_file") or chunk.get("file_name")
             if source_file:
                 payload["source_file"] = source_file
+                # Also store as file_name for explicit requirement and backward compatibility
+                payload["file_name"] = source_file
+            
+            # Ensure file_name is always set (REQUIRED metadata field)
+            if not payload.get("file_name"):
+                payload["file_name"] = source_file or "unknown_file"
             
             # Add upload_timestamp if present (for tracking when file was uploaded)
             upload_timestamp = chunk.get("upload_timestamp")
@@ -1602,6 +1660,10 @@ def upsert(client: QdrantClient, name: str, chunks: List[Dict[str, Any]], vector
             # Ensure positive (Qdrant prefers positive IDs)
             if point_id < 0:
                 point_id = abs(point_id)
+            
+            # Store chunk_id/point_id in metadata for reference (REQUIRED)
+            payload["chunk_id"] = point_id
+            payload["point_id"] = point_id  # Also store as point_id for clarity
             
             points.append(
                 rest_models.PointStruct(

@@ -45,8 +45,8 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
-.Python
 *.md
+.Python
 !README.md
 !documents/*.md
 !README*.md

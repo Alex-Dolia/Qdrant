@@ -131,9 +131,11 @@ def initialize_llm(model: str = "llama3.1:latest"):
 def initialize_embeddings(embedding_model: str):
     """Initialize embeddings based on model name."""
     try:
-        if embedding_model.startswith("ollama/"):
+        from scripts.utils.model_utils import is_ollama_model, get_ollama_model_name
+        
+        if is_ollama_model(embedding_model):
             from langchain_ollama import OllamaEmbeddings
-            model_name = embedding_model.replace("ollama/", "")
+            model_name = get_ollama_model_name(embedding_model)
             return OllamaEmbeddings(model=model_name)
         elif embedding_model.startswith("text-embedding-"):
             from langchain_openai import OpenAIEmbeddings

@@ -33,10 +33,13 @@ except ImportError:
 
 
 class WebSearch:
-    """Web search interface for research augmentation with hybrid reranking."""
+    """Web search interface for research augmentation with hybrid reranking.
+    
+    This implementation uses Ollama for embeddings and supports hybrid search with BM25.
+    """
     
     def __init__(self, provider: str = "duckduckgo", use_cache: bool = True, 
-                 use_reranking: bool = True, embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2"):
+                 use_reranking: bool = True, embedding_model: str = "llama3.1:latest"):
         """
         Initialize web search provider with optional hybrid reranking.
         
@@ -44,7 +47,7 @@ class WebSearch:
             provider: "duckduckgo" (default) or "serpapi"
             use_cache: Enable caching for faster repeated searches
             use_reranking: Enable hybrid BM25 + embedding reranking
-            embedding_model: Model for embeddings (e.g., "ollama/llama3.1:latest", "sentence-transformers/all-MiniLM-L6-v2")
+            embedding_model: Ollama model for embeddings (e.g., "llama3.1:latest")
         """
         self.provider = provider
         self.ddgs = None
@@ -86,35 +89,24 @@ class WebSearch:
             self.api_key = os.getenv("SERPAPI_API_KEY", "")
             if not self.api_key:
                 logger.warning("SERPAPI_API_KEY not set, web search will be limited")
-        
-        # Initialize embeddings for reranking if enabled
-        if self.use_reranking:
-            self._initialize_embeddings()
-            if not self.embeddings:
-                logger.warning("Reranking disabled: embeddings not available")
-                self.use_reranking = False
     
-    def _initialize_embeddings(self):
-        """Initialize embeddings model for reranking."""
+        # Initialize embeddings if reranking is enabled
+        if self.use_reranking:
+            self._init_embeddings()
+            
+    def _init_embeddings(self):
+        """Initialize the Ollama embedding model."""
         try:
-            if self.embedding_model.startswith("ollama/"):
-                from langchain_ollama import OllamaEmbeddings
-                model_name = self.embedding_model.replace("ollama/", "")
-                self.embeddings = OllamaEmbeddings(model=model_name)
-                logger.info(f"Initialized Ollama embeddings: {model_name}")
-            elif self.embedding_model.startswith("text-embedding-"):
-                from langchain_openai import OpenAIEmbeddings
-                self.embeddings = OpenAIEmbeddings(model=self.embedding_model)
-                logger.info(f"Initialized OpenAI embeddings: {self.embedding_model}")
-            elif "sentence-transformers" in self.embedding_model or "/" in self.embedding_model:
-                from langchain_community.embeddings import HuggingFaceEmbeddings
-                self.embeddings = HuggingFaceEmbeddings(model_name=self.embedding_model)
-                logger.info(f"Initialized HuggingFace embeddings: {self.embedding_model}")
-            else:
-                # Default to sentence-transformers
-                from langchain_community.embeddings import HuggingFaceEmbeddings
-                self.embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
-                logger.info("Initialized default HuggingFace embeddings")
+            from langchain_community.embeddings import OllamaEmbeddings
+            # Remove 'ollama/' prefix if present
+            model_name = self.embedding_model.replace("ollama/", "")
+            self.embeddings = OllamaEmbeddings(model=model_name)
+            logger.info(f"Initialized Ollama embeddings with model: {model_name}")
+        except ImportError as e:
+            logger.warning(f"Failed to initialize Ollama embeddings: {e}")
+            logger.warning("Please install langchain-community: pip install langchain-community")
+            self.embeddings = None
+            self.use_reranking = False
         except ImportError as e:
             logger.warning(f"Failed to initialize embeddings for reranking: {e}")
             self.embeddings = None
@@ -407,14 +399,14 @@ class WebSearch:
                             # Limit snippet length
                             if len(snippet) > 500:
                                 snippet = snippet[:500] + "..."
-                        
-                        # Try to extract domain for publication info
-                        domain = ""
-                        if url:
-                            try:
-                                from urllib.parse import urlparse
-                                parsed = urlparse(url)
-                                domain = parsed.netloc.replace("www.", "")
+                    
+                    # Try to extract domain for publication info
+                    domain = ""
+                    if url:
+                        try:
+                            from urllib.parse import urlparse
+                            parsed = urlparse(url)
+                            domain = parsed.netloc.replace("www.", "")
                                 # Clean domain (remove port if present)
                                 if ":" in domain:
                                     domain = domain.split(":")[0]
@@ -423,17 +415,17 @@ class WebSearch:
                         
                         # Only add if we have meaningful content
                         if title or (url and snippet):
-                            results.append({
+                    results.append({
                                 "title": title or url,  # Use URL as fallback title
-                                "url": url,
-                                "snippet": snippet,
-                                "source": "web",
-                                "source_type": "web_search",
-                                "domain": domain,
-                                "author": "",  # DuckDuckGo doesn't provide this
-                                "date": "",  # DuckDuckGo doesn't provide this
-                                "publication": domain  # Use domain as publication name
-                            })
+                        "url": url,
+                        "snippet": snippet,
+                        "source": "web",
+                        "source_type": "web_search",
+                        "domain": domain,
+                        "author": "",  # DuckDuckGo doesn't provide this
+                        "date": "",  # DuckDuckGo doesn't provide this
+                        "publication": domain  # Use domain as publication name
+                    })
                             logger.debug(f"Added result {len(results)}: {title[:50]}...")
                         else:
                             logger.debug(f"Skipping result {idx}: insufficient content")

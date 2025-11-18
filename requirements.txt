@@ -69,9 +69,8 @@ pdfplumber>=0.10.0  # For advanced PDF parsing
 
 # ============================================================================
 # Embeddings & ML Models
-# ============================================================================
-sentence-transformers>=2.2.0
-torch>=2.0.0  # Required by sentence-transformers for embeddings
+# ===========================================================================
+ollama>=0.1.0  # For Ollama model serving and embeddings
 
 # ============================================================================
 # Search & Retrieval

@@ -115,8 +115,9 @@ def ingest_documents_to_qdrant(
     if not LEGAL_CHUNKER_AVAILABLE:
         raise ImportError("Legal chunker not available. Install dependencies.")
     
-    # Handle "ollama/" prefix
-    model_for_chunker = embedding_model.replace("ollama/", "") if embedding_model.startswith("ollama/") else embedding_model
+    # Handle Ollama model names
+    from scripts.utils.model_utils import is_ollama_model, get_ollama_model_name
+    model_for_chunker = get_ollama_model_name(embedding_model) if is_ollama_model(embedding_model) else embedding_model
     
     # Get chunking methods
     if chunking_methods is None:
